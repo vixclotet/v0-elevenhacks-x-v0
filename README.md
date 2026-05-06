@@ -2,7 +2,7 @@
 
 > A complete visual redesign of the Sticker Mule product website, built with [v0](https://v0.app) and powered by [ElevenLabs](https://elevenlabs.io) TTS. Same product. Completely different aesthetic. Every product you can touch has a voice.
 
-**Hackathon:** ElevenHacks x v0 &nbsp;|&nbsp; **Track:** Clone + Reimagine
+**Hackathon:** ElevenHacks x v0 &nbsp;|
 
 ---
 
