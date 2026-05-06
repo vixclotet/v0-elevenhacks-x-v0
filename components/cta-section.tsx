@@ -28,13 +28,13 @@ export function CTASection() {
               className="object-cover opacity-20"
               aria-hidden="true"
             />
-            <div className="absolute inset-0 bg-primary/80" />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary-dark" />
           </div>
 
-          {/* Floating sticker - glitter donkey */}
+          {/* Floating mascot sticker */}
           <motion.div
-            animate={{ y: [0, -12, 0], rotate: [-5, 5, -5] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            animate={{ y: [0, -14, 0], rotate: [-5, 5, -5] }}
+            transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
             className="absolute right-8 top-1/2 -translate-y-1/2 w-40 h-40 hidden lg:block"
           >
             <Image
@@ -46,15 +46,15 @@ export function CTASection() {
             />
           </motion.div>
 
-          {/* Floating sticker - glitter collection */}
+          {/* Floating glitter sticker collection */}
           <motion.div
             animate={{ y: [0, 10, 0], rotate: [3, -3, 3] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute left-8 top-8 w-28 hidden xl:block opacity-80"
+            transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            className="absolute left-8 top-6 w-28 hidden xl:block opacity-80"
           >
             <Image
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/9721811975cc03bfefa60845915416ee-Zq4dmRYknauhP18saygyznVC70IbEf.jpg"
-              alt="Glitter sticker thumbnail"
+              alt="Glitter sticker collection thumbnail"
               width={112}
               height={112}
               className="w-full h-auto rounded-2xl object-cover shadow-xl"
@@ -73,7 +73,7 @@ export function CTASection() {
               Start designing for free
             </motion.div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight text-balance">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.0] tracking-tight text-balance">
               Ready to create something{" "}
               <span className="underline decoration-white/40 decoration-wavy underline-offset-4">
                 awesome
@@ -89,7 +89,7 @@ export function CTASection() {
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-10">
               <Button
                 size="lg"
-                className="bg-white text-primary hover:bg-white/90 font-black text-base px-8 py-6 rounded-full shadow-xl transition-all hover:scale-105 group"
+                className="btn-press bg-white text-primary hover:bg-white/90 font-display font-black text-base px-8 py-6 rounded-full shadow-xl transition-all hover:scale-105 group"
                 onClick={playSuccess}
               >
                 Start Designing Free
@@ -97,18 +97,18 @@ export function CTASection() {
               </Button>
               <Button
                 size="lg"
-                className="bg-transparent border-2 border-white/50 text-white hover:bg-white/10 font-semibold text-base px-8 py-6 rounded-full transition-all"
+                className="btn-press bg-transparent border-2 border-white/50 text-white hover:bg-white/10 font-semibold text-base px-8 py-6 rounded-full transition-all"
                 onClick={playClick}
               >
                 Get Free Samples
               </Button>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 mt-8 text-white/60 text-sm">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 mt-8 text-white/60 text-sm">
               <span>No credit card required</span>
-              <span>&bull;</span>
+              <span aria-hidden="true">&bull;</span>
               <span>Free proofs</span>
-              <span>&bull;</span>
+              <span aria-hidden="true">&bull;</span>
               <span>Free worldwide shipping</span>
             </div>
           </div>

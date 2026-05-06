@@ -4,10 +4,11 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { Search, ShoppingCart, User, Menu, X, ChevronDown, Sparkles } from "lucide-react"
+import { Search, ShoppingCart, User, Menu, X, ChevronDown, Sparkles, Pause, Play } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { createClickSound } from "@/lib/sounds"
+import { useMotion } from "@/components/motion-provider"
 
 const products = [
   { name: "Die-Cut Stickers", href: "#", description: "Custom shaped stickers" },
@@ -26,6 +27,7 @@ export function Navbar() {
   const [productsOpen, setProductsOpen] = useState(false)
   const [searchFocused, setSearchFocused] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const { reduceMotion, toggleReduceMotion } = useMotion()
   const playClick = createClickSound()
 
   useEffect(() => {
@@ -38,15 +40,16 @@ export function Navbar() {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ type: "spring", stiffness: 200, damping: 25 }}
+      transition={{ type: "spring", stiffness: 220, damping: 28 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-card/95 backdrop-blur-xl shadow-lg border-b border-border"
-          : "bg-card/80 backdrop-blur-xl border-b border-border"
+          : "bg-card/85 backdrop-blur-xl border-b border-border"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
+
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group" onClick={playClick}>
             <Image
@@ -56,7 +59,7 @@ export function Navbar() {
               height={40}
               className="rounded-xl object-cover transition-transform group-hover:scale-105"
             />
-            <span className="font-bold text-xl text-foreground hidden sm:block tracking-tight">
+            <span className="font-display font-black text-xl text-foreground hidden sm:block tracking-tight">
               sticker<span className="text-primary">mule</span>
             </span>
           </Link>
@@ -68,7 +71,7 @@ export function Navbar() {
               onMouseEnter={() => setProductsOpen(true)}
               onMouseLeave={() => setProductsOpen(false)}
             >
-              <button className="flex items-center gap-1 px-4 py-2 text-foreground/80 hover:text-foreground font-medium transition-colors">
+              <button className="flex items-center gap-1 px-4 py-2 text-foreground/80 hover:text-foreground font-medium transition-colors rounded-lg hover:bg-muted">
                 Products
                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${productsOpen ? "rotate-180" : ""}`} />
               </button>
@@ -87,10 +90,10 @@ export function Navbar() {
                         <Link
                           key={product.name}
                           href={product.href}
-                          className="flex flex-col p-3 rounded-xl hover:bg-muted transition-colors group"
+                          className="flex flex-col p-3 rounded-xl hover:bg-muted transition-colors group/item"
                           onClick={playClick}
                         >
-                          <span className="font-medium text-foreground group-hover:text-primary transition-colors text-sm">
+                          <span className="font-medium text-foreground group-hover/item:text-primary transition-colors text-sm">
                             {product.name}
                           </span>
                           <span className="text-xs text-muted-foreground">
@@ -100,7 +103,7 @@ export function Navbar() {
                       ))}
                     </div>
                     <div className="mt-4 pt-4 border-t border-border">
-                      <Link href="#" className="flex items-center gap-2 text-primary font-medium hover:underline text-sm">
+                      <Link href="#" className="flex items-center gap-2 text-primary font-medium hover:underline text-sm" onClick={playClick}>
                         <Sparkles className="w-4 h-4" />
                         View all products
                       </Link>
@@ -110,21 +113,30 @@ export function Navbar() {
               </AnimatePresence>
             </div>
 
-            <Link href="#" className="px-4 py-2 text-foreground/80 hover:text-foreground font-medium transition-colors" onClick={playClick}>
-              Studio
-            </Link>
-            <Link href="#" className="px-4 py-2 text-foreground/80 hover:text-foreground font-medium transition-colors" onClick={playClick}>
-              Start Selling
-            </Link>
-            <Link href="#" className="px-4 py-2 text-primary hover:text-primary/80 font-semibold transition-colors animate-pulse" onClick={playClick}>
+            {["Studio", "Start Selling"].map((item) => (
+              <Link
+                key={item}
+                href="#"
+                className="px-4 py-2 text-foreground/80 hover:text-foreground font-medium transition-colors rounded-lg hover:bg-muted"
+                onClick={playClick}
+              >
+                {item}
+              </Link>
+            ))}
+            <Link
+              href="#"
+              className="px-4 py-2 text-primary hover:text-primary/80 font-bold transition-colors rounded-lg hover:bg-primary/5"
+              onClick={playClick}
+            >
               Deals
             </Link>
           </div>
 
-          {/* Search & Actions */}
-          <div className="flex items-center gap-3">
+          {/* Right actions */}
+          <div className="flex items-center gap-2">
+            {/* Search */}
             <div className={`hidden md:flex relative transition-all duration-300 ${searchFocused ? "w-64" : "w-44"}`}>
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
               <Input
                 placeholder="Search products..."
                 className="pl-10 bg-muted/50 border-0 focus:bg-card focus:ring-2 focus:ring-primary/20 rounded-full text-sm"
@@ -133,19 +145,29 @@ export function Navbar() {
               />
             </div>
 
-            <Button variant="ghost" size="icon" className="relative" onClick={playClick}>
+            {/* Reduce motion toggle */}
+            <button
+              onClick={toggleReduceMotion}
+              title={reduceMotion ? "Enable animations" : "Reduce motion"}
+              className="hidden sm:flex w-9 h-9 rounded-full items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              aria-label={reduceMotion ? "Enable animations" : "Reduce motion"}
+            >
+              {reduceMotion ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
+            </button>
+
+            <Button variant="ghost" size="icon" className="btn-press relative" onClick={playClick}>
               <ShoppingCart className="w-5 h-5" />
               <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-primary-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
                 0
               </span>
             </Button>
 
-            <Button variant="ghost" size="icon" className="hidden sm:flex" onClick={playClick}>
+            <Button variant="ghost" size="icon" className="btn-press hidden sm:flex" onClick={playClick}>
               <User className="w-5 h-5" />
             </Button>
 
             <Button
-              className="hidden md:flex bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-full px-6 shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 transition-all"
+              className="btn-press hidden md:flex bg-primary hover:bg-primary-dark text-primary-foreground font-bold font-display rounded-full px-6 shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 transition-all"
               onClick={playClick}
             >
               Design Now
@@ -154,7 +176,7 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden"
+              className="btn-press lg:hidden"
               onClick={() => { setIsOpen(!isOpen); playClick() }}
             >
               {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -177,19 +199,28 @@ export function Navbar() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input placeholder="Search products..." className="pl-10 bg-muted/50 border-0 rounded-full" />
               </div>
-              <div className="space-y-2">
+              <div className="space-y-1">
                 {["Products", "Studio", "Start Selling"].map((item) => (
-                  <Link key={item} href="#" className="block py-3 font-medium text-foreground border-b border-border" onClick={playClick}>
+                  <Link key={item} href="#" className="block py-3 px-2 font-medium text-foreground border-b border-border rounded-lg hover:bg-muted transition-colors" onClick={playClick}>
                     {item}
                   </Link>
                 ))}
-                <Link href="#" className="block py-3 font-semibold text-primary border-b border-border" onClick={playClick}>
+                <Link href="#" className="block py-3 px-2 font-bold text-primary border-b border-border rounded-lg hover:bg-primary/5 transition-colors" onClick={playClick}>
                   Deals
                 </Link>
               </div>
-              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-full" onClick={playClick}>
-                Start Designing Free
-              </Button>
+              <div className="flex items-center justify-between">
+                <Button className="flex-1 btn-press bg-primary hover:bg-primary-dark text-primary-foreground font-bold font-display rounded-full mr-2" onClick={playClick}>
+                  Start Designing Free
+                </Button>
+                <button
+                  onClick={toggleReduceMotion}
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors flex-shrink-0"
+                  aria-label={reduceMotion ? "Enable animations" : "Reduce motion"}
+                >
+                  {reduceMotion ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
           </motion.div>
         )}

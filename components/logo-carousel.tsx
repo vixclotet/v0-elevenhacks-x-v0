@@ -27,7 +27,7 @@ export function LogoCarousel() {
   return (
     <section className="py-14 bg-card border-y border-border overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-        <p className="text-center text-sm font-semibold text-muted-foreground uppercase tracking-widest">
+        <p className="font-display text-center text-sm font-bold text-muted-foreground uppercase tracking-widest">
           Trusted by 350,000+ teams &amp; creators worldwide
         </p>
       </div>

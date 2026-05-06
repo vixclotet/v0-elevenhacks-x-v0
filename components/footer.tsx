@@ -72,9 +72,9 @@ export function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div>
-              <h3 className="text-2xl lg:text-3xl font-black text-white">
-                Get design tips + 10% off
-              </h3>
+            <h3 className="font-display text-2xl lg:text-3xl font-black text-white">
+              Get design tips + 10% off
+            </h3>
               <p className="mt-2 text-white/60">
                 Join our newsletter for exclusive deals and creative inspiration.
               </p>
@@ -126,7 +126,7 @@ export function Footer() {
                 height={44}
                 className="rounded-xl"
               />
-              <span className="font-bold text-xl text-white">
+              <span className="font-display font-black text-xl text-white">
                 sticker<span className="text-primary">mule</span>
               </span>
             </Link>

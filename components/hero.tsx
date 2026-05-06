@@ -2,10 +2,11 @@
 
 import { useEffect, useRef } from "react"
 import Image from "next/image"
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Check, Star, Truck, FileCheck, Zap } from "lucide-react"
 import { createClickSound } from "@/lib/sounds"
+import { useMotion } from "@/components/motion-provider"
 
 const features = [
   { icon: Truck, text: "Free worldwide shipping" },
@@ -19,22 +20,68 @@ const stats = [
   { value: "4.7★", label: "Average rating" },
 ]
 
+const floatingStickers = [
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/as-web-Stickermule_-_169-gTixLqx96t4pDbrTvsn0Wo7KA1aTOQ.webp",
+    alt: "Custom taco die-cut stickers on orange background",
+    className: "absolute -bottom-8 -left-6 lg:-left-12 w-48 h-30 rounded-2xl border-4 border-card shadow-2xl cursor-pointer",
+    initial: { opacity: 0, scale: 0.8, rotate: -10 },
+    animate: { opacity: 1, scale: 1, rotate: -6 },
+    transition: { delay: 0.5 },
+    float: { y: [0, -8, 0], rotate: [-6, -4, -6] },
+    floatDuration: 4,
+    aspect: "aspect-video",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/proof-Qry9TMI12cHokSjGKokiQEwabHwx46.png",
+    alt: "Sticker Mule holographic donkey mascot sticker",
+    className: "absolute -top-6 -right-4 lg:-right-10 w-24 h-24",
+    initial: { opacity: 0, y: -20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { delay: 0.9 },
+    float: { y: [0, -12, 0], rotate: [-5, 5, -5] },
+    floatDuration: 5,
+    aspect: "",
+  },
+]
+
 export function Hero() {
+  const { reduceMotion } = useMotion()
   const playClick = createClickSound()
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const { scrollY } = useScroll()
+
+  // Parallax: hero bg elements move up slower than scroll
+  const bgY = useTransform(scrollY, [0, 500], [0, reduceMotion ? 0 : -80])
+  const imgY = useTransform(scrollY, [0, 500], [0, reduceMotion ? 0 : -40])
 
   return (
-    <section className="relative min-h-screen pt-20 lg:pt-24 overflow-hidden bg-background">
-      {/* Subtle bg texture */}
-      <div className="absolute inset-0 -z-10 opacity-30"
-        style={{
-          backgroundImage: `radial-gradient(circle at 20% 50%, oklch(0.62 0.24 30 / 0.08) 0%, transparent 60%),
-            radial-gradient(circle at 80% 20%, oklch(0.75 0.15 200 / 0.06) 0%, transparent 50%)`
-        }}
-      />
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen pt-20 lg:pt-24 overflow-hidden bg-background"
+    >
+      {/* Parallax ambient background */}
+      <motion.div
+        style={{ y: bgY }}
+        className="absolute inset-0 -z-10 pointer-events-none"
+        aria-hidden="true"
+      >
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage: `
+              radial-gradient(ellipse 60% 50% at 15% 55%, oklch(0.62 0.24 30 / 0.10) 0%, transparent 70%),
+              radial-gradient(ellipse 50% 40% at 85% 20%, oklch(0.75 0.15 200 / 0.08) 0%, transparent 60%),
+              radial-gradient(ellipse 40% 30% at 70% 80%, oklch(0.87 0.09 165 / 0.07) 0%, transparent 50%)
+            `,
+          }}
+        />
+      </motion.div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Content */}
+
+          {/* ── Left Content ─────────────────────────────── */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -43,28 +90,26 @@ export function Hero() {
           >
             {/* Badge */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.15 }}
               className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-6"
             >
               <Star className="w-4 h-4 fill-primary" />
-              4.7/5 from 350k+ reviews
+              4.7/5 from 350k+ verified reviews
             </motion.div>
 
-            {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-foreground leading-[1.05] text-balance">
-              Custom stickers{" "}
+            {/* Headline — Satoshi Black */}
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-[5.5rem] xl:text-[6rem] font-black text-foreground leading-[1.0] tracking-tight text-balance">
+              Custom{" "}
+              <span className="text-primary">stickers</span>
+              {" "}&amp; merch{" "}
               <span className="relative inline-block">
-                <span className="text-primary">&amp; merch</span>
-              </span>
-              {" "}that actually{" "}
-              <span className="relative">
-                <span className="text-primary italic">kick ass</span>
+                <em className="not-italic text-primary">that kick ass.</em>
                 <motion.span
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.8, duration: 0.5 }}
+                  transition={{ delay: 0.9, duration: 0.5, ease: "easeOut" }}
                   className="absolute -bottom-1 left-0 right-0 h-1 bg-primary/30 rounded-full origin-left"
                 />
               </span>
@@ -76,18 +121,21 @@ export function Hero() {
               transition={{ delay: 0.4 }}
               className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-md mx-auto lg:mx-0"
             >
-              Fast, easy, and affordable custom printing. Trusted by 350,000+ businesses worldwide.
+              Fast, easy, and affordable custom printing. Trusted by 350,000+ businesses worldwide — with free shipping on every order.
             </motion.p>
 
-            {/* Features */}
+            {/* Feature pills */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="flex flex-wrap justify-center lg:justify-start gap-4 mt-6"
+              className="flex flex-wrap justify-center lg:justify-start gap-3 mt-6"
             >
               {features.map((feature) => (
-                <div key={feature.text} className="flex items-center gap-2">
+                <div
+                  key={feature.text}
+                  className="flex items-center gap-2 bg-card border border-border rounded-full px-4 py-2 shadow-sm"
+                >
                   <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <feature.icon className="w-3 h-3 text-primary" />
                   </div>
@@ -105,7 +153,7 @@ export function Hero() {
             >
               <Button
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base px-8 py-6 rounded-full shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 transition-all group hover:scale-105"
+                className="btn-press bg-primary hover:bg-primary-dark text-primary-foreground font-bold text-base px-8 py-6 rounded-full shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 transition-all group"
                 onClick={playClick}
               >
                 Start Designing Free
@@ -114,7 +162,7 @@ export function Hero() {
               <Button
                 variant="outline"
                 size="lg"
-                className="font-semibold text-base px-8 py-6 rounded-full border-2 hover:bg-primary/5 transition-all"
+                className="btn-press font-semibold text-base px-8 py-6 rounded-full border-2 hover:bg-primary/5 transition-all"
                 onClick={playClick}
               >
                 Get Free Samples
@@ -130,80 +178,112 @@ export function Hero() {
             >
               {stats.map((stat) => (
                 <div key={stat.label} className="text-center lg:text-left">
-                  <div className="text-2xl font-black text-primary">{stat.value}</div>
+                  <div className="font-display text-2xl font-black text-primary">{stat.value}</div>
                   <div className="text-xs text-muted-foreground mt-0.5">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
           </motion.div>
 
-          {/* Right Content - Real Images */}
+          {/* ── Right Content — real product images ──────── */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            style={{ y: imgY }}
             className="relative"
           >
-            {/* Main hero image */}
             <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="relative rounded-3xl overflow-hidden shadow-2xl"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+              className="relative"
             >
-              <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hero_1x-Yjddh7IW92UvnWIwuSSHuP5FqFaoJ8.jpg"
-                alt="Sticker Mule custom stickers in a box - showcasing die-cut stickers, magnets, and custom merch"
-                width={600}
-                height={450}
-                className="w-full object-cover"
-                priority
-              />
-            </motion.div>
+              {/* Main hero image */}
+              <motion.div
+                animate={reduceMotion ? {} : { y: [0, -8, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                className="relative rounded-3xl overflow-hidden shadow-2xl holo-shine"
+              >
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hero_1x-Yjddh7IW92UvnWIwuSSHuP5FqFaoJ8.jpg"
+                  alt="Sticker Mule custom stickers spilling from a box — die-cut stickers, magnets, and custom merch"
+                  width={640}
+                  height={480}
+                  className="w-full object-cover"
+                  priority
+                />
+              </motion.div>
 
-            {/* Floating secondary image - taco stickers */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
-              animate={{ opacity: 1, scale: 1, rotate: -6 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              whileHover={{ rotate: 0, scale: 1.05 }}
-              className="absolute -bottom-6 -left-6 lg:-left-10 w-44 h-28 rounded-2xl overflow-hidden shadow-xl border-4 border-card cursor-pointer"
-            >
-              <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/as-web-Stickermule_-_169-gTixLqx96t4pDbrTvsn0Wo7KA1aTOQ.webp"
-                alt="Custom taco die-cut stickers on orange background"
-                fill
-                className="object-cover"
-              />
-            </motion.div>
+              {/* Floating taco sticker card */}
+              <motion.div
+                initial={floatingStickers[0].initial}
+                animate={floatingStickers[0].animate}
+                transition={floatingStickers[0].transition}
+                className="absolute -bottom-8 -left-6 lg:-left-12 w-48 rounded-2xl overflow-hidden border-4 border-card shadow-2xl cursor-pointer sticker-peel"
+              >
+                <motion.div
+                  animate={reduceMotion ? {} : { y: floatingStickers[0].float.y, rotate: floatingStickers[0].float.rotate }}
+                  transition={{ duration: floatingStickers[0].floatDuration, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Image
+                    src={floatingStickers[0].src}
+                    alt={floatingStickers[0].alt}
+                    width={240}
+                    height={135}
+                    className="w-full object-cover aspect-video"
+                  />
+                </motion.div>
+              </motion.div>
 
-            {/* Floating badge - Proof Ready */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 }}
-              className="absolute top-4 -right-4 lg:-right-8 bg-card rounded-2xl shadow-xl p-3 border border-border"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 bg-green-500/10 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Check className="w-4 h-4 text-green-500" />
+              {/* Floating mascot sticker */}
+              <motion.div
+                initial={floatingStickers[1].initial}
+                animate={floatingStickers[1].animate}
+                transition={floatingStickers[1].transition}
+                className="absolute -top-6 -right-4 lg:-right-10 w-24 h-24 hover-wiggle"
+              >
+                <motion.div
+                  animate={reduceMotion ? {} : { y: floatingStickers[1].float.y, rotate: floatingStickers[1].float.rotate }}
+                  transition={{ duration: floatingStickers[1].floatDuration, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Image
+                    src={floatingStickers[1].src}
+                    alt={floatingStickers[1].alt}
+                    width={96}
+                    height={96}
+                    className="w-full h-full object-contain drop-shadow-2xl"
+                  />
+                </motion.div>
+              </motion.div>
+
+              {/* Proof-ready badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.0 }}
+                className="absolute top-1/2 -right-4 lg:-right-8 -translate-y-1/2 bg-card rounded-2xl shadow-xl p-3 border border-border"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 bg-green-500/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Check className="w-4 h-4 text-green-500" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-foreground text-sm">Proof Ready</div>
+                    <div className="text-xs text-muted-foreground">in under 4 hrs</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="font-semibold text-foreground text-sm">Proof Ready</div>
-                  <div className="text-xs text-muted-foreground">in 4 minutes</div>
-                </div>
-              </div>
-            </motion.div>
+              </motion.div>
 
-            {/* Floating badge - Free Shipping */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.1 }}
-              className="absolute -top-4 left-8 bg-primary text-primary-foreground rounded-2xl shadow-xl px-4 py-2"
-            >
-              <div className="text-sm font-bold">Free Worldwide Shipping</div>
+              {/* Free shipping badge */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2 }}
+                className="absolute -top-4 left-8 bg-primary text-primary-foreground rounded-2xl shadow-xl px-4 py-2"
+              >
+                <div className="text-sm font-bold">Free Worldwide Shipping</div>
+              </motion.div>
             </motion.div>
           </motion.div>
+
         </div>
       </div>
     </section>

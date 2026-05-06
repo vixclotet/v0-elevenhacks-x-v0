@@ -5,31 +5,37 @@
 
 :root {
   /* Sticker Mule Color Palette */
-  --background: oklch(0.98 0.005 90); /* Soft Cream #F8F5F0 */
-  --foreground: oklch(0.15 0.02 250); /* Deep Navy #0A1428 */
-  --card: oklch(1 0 0); /* White */
-  --card-foreground: oklch(0.15 0.02 250);
+  --background: oklch(0.98 0.005 90);        /* Soft Cream #F8F5F0 */
+  --foreground: oklch(0.10 0.02 250);        /* Rich Black #111111 */
+  --card: oklch(1 0 0);                      /* White */
+  --card-foreground: oklch(0.10 0.02 250);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.02 250);
-  --primary: oklch(0.62 0.24 30); /* Vibrant Orange #FF4D00 */
+  --popover-foreground: oklch(0.10 0.02 250);
+  --primary: oklch(0.62 0.24 30);            /* Vibrant Orange #FF4D00 */
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.15 0.02 250); /* Deep Navy */
+  --primary-dark: oklch(0.54 0.24 22);       /* Deep Orange-Red #E62E00 */
+  --secondary: oklch(0.15 0.02 250);         /* Deep Navy #0A1428 */
   --secondary-foreground: oklch(1 0 0);
-  --muted: oklch(0.96 0.005 90);
-  --muted-foreground: oklch(0.45 0.02 250);
-  --accent: oklch(0.75 0.15 200); /* Electric Blue #00D4FF */
-  --accent-foreground: oklch(0.15 0.02 250);
+  --muted: oklch(0.96 0.003 90);             /* Light Gray #F4F4F5 */
+  --muted-foreground: oklch(0.48 0.015 250);
+  --accent: oklch(0.75 0.15 200);            /* Electric Blue #00D4FF */
+  --accent-foreground: oklch(0.10 0.02 250);
+  --mint: oklch(0.87 0.09 165);              /* Soft Mint #A1E8D5 */
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.9 0.01 90);
+  --border: oklch(0.90 0.01 90);
   --input: oklch(0.92 0.01 90);
   --ring: oklch(0.62 0.24 30);
+  --radius: 0.75rem;
+
+  /* Chart tokens */
   --chart-1: oklch(0.62 0.24 30);
   --chart-2: oklch(0.75 0.15 200);
   --chart-3: oklch(0.15 0.02 250);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.75rem;
+
+  /* Sidebar tokens */
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.62 0.24 30);
@@ -41,7 +47,7 @@
 }
 
 .dark {
-  --background: oklch(0.13 0.02 250); /* Dark Navy */
+  --background: oklch(0.13 0.02 250);        /* Deep Navy */
   --foreground: oklch(0.98 0.005 90);
   --card: oklch(0.18 0.02 250);
   --card-foreground: oklch(0.98 0.005 90);
@@ -49,12 +55,14 @@
   --popover-foreground: oklch(0.98 0.005 90);
   --primary: oklch(0.65 0.24 30);
   --primary-foreground: oklch(1 0 0);
+  --primary-dark: oklch(0.57 0.24 22);
   --secondary: oklch(0.25 0.02 250);
   --secondary-foreground: oklch(0.98 0.005 90);
   --muted: oklch(0.22 0.02 250);
   --muted-foreground: oklch(0.65 0.01 90);
   --accent: oklch(0.75 0.15 200);
   --accent-foreground: oklch(0.15 0.02 250);
+  --mint: oklch(0.87 0.09 165);
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
   --border: oklch(0.28 0.02 250);
@@ -76,8 +84,11 @@
 }
 
 @theme inline {
+  /* Satoshi as heading font, Inter as body/UI */
   --font-sans: 'Inter', 'Inter Fallback', system-ui, sans-serif;
+  --font-display: 'Satoshi', 'Inter', system-ui, sans-serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -86,12 +97,14 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-dark: var(--primary-dark);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-mint: var(--mint);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
@@ -114,13 +127,6 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  
-  /* Custom Sticker Mule colors */
-  --color-orange: oklch(0.62 0.24 30);
-  --color-orange-dark: oklch(0.55 0.24 25);
-  --color-navy: oklch(0.15 0.02 250);
-  --color-cream: oklch(0.98 0.005 90);
-  --color-electric-blue: oklch(0.75 0.15 200);
 }
 
 @layer base {
@@ -130,72 +136,171 @@
   body {
     @apply bg-background text-foreground;
   }
+  /* Smooth scroll — respect prefers-reduced-motion */
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
 }
 
-/* Custom animations */
+/* ─── Typography ──────────────────────────────────────────── */
+
+/* Display / heading font (Satoshi) */
+.font-display {
+  font-family: 'Satoshi', 'Inter', system-ui, sans-serif;
+}
+
+/* ─── Button press micro-interaction ─────────────────────── */
+.btn-press {
+  transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.1s ease;
+}
+.btn-press:active {
+  transform: scale(0.95);
+}
+
+/* ─── Sticker peel reusable utility ──────────────────────── */
+.sticker-peel {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  transform-origin: center bottom;
+}
+.sticker-peel:hover {
+  transform: translateY(-6px) rotate(-1.5deg);
+  box-shadow:
+    0 16px 40px -8px rgba(255, 77, 0, 0.25),
+    0 6px 16px -4px rgba(0, 0, 0, 0.12);
+}
+
+/* Peel corner — bottom-left curled corner pseudo-element */
+.sticker-peel::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0;
+  border-color: transparent transparent var(--background) transparent;
+  transition: border-width 0.25s ease;
+  border-radius: 0 4px 0 var(--radius);
+  pointer-events: none;
+  z-index: 2;
+}
+.sticker-peel:hover::after {
+  border-width: 0 0 24px 24px;
+}
+
+/* ─── Holographic shine sweep ─────────────────────────────── */
+@keyframes holo-sweep {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.holo-shine {
+  position: relative;
+  overflow: hidden;
+}
+.holo-shine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255,255,255,0.55) 50%,
+    rgba(0,212,255,0.25) 55%,
+    transparent 65%
+  );
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  z-index: 3;
+  animation: holo-sweep 0.6s linear;
+  animation-play-state: paused;
+}
+.holo-shine:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+/* ─── Float animation ─────────────────────────────────────── */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-10px) rotate(1deg); }
+  66%       { transform: translateY(-5px) rotate(-0.5deg); }
+}
+.animate-float {
+  animation: float 5s ease-in-out infinite;
 }
 
-@keyframes peel {
-  0% { transform: rotateX(0deg) rotateY(0deg); }
-  50% { transform: rotateX(5deg) rotateY(-5deg); }
-  100% { transform: rotateX(0deg) rotateY(0deg); }
-}
-
+/* ─── Shimmer (loading / accent) ─────────────────────────── */
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
+  0%   { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.animate-peel {
-  animation: peel 4s ease-in-out infinite;
-}
-
 .animate-shimmer {
   animation: shimmer 2s linear infinite;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
   background-size: 200% 100%;
 }
 
-/* Sticker peel effect on hover */
-.sticker-peel {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.sticker-peel:hover {
-  transform: translateY(-4px) rotate(-1deg);
-  box-shadow: 
-    0 10px 30px -5px rgba(255, 77, 0, 0.2),
-    0 5px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Logo carousel infinite scroll */
+/* ─── Logo carousel scroll ────────────────────────────────── */
 @keyframes scroll-left {
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-
 .animate-scroll-left {
   animation: scroll-left 30s linear infinite;
 }
 
-/* Sticker wiggle on hover */
+/* ─── Wiggle on hover ─────────────────────────────────────── */
 @keyframes wiggle {
   0%, 100% { transform: rotate(-2deg); }
-  50% { transform: rotate(2deg); }
+  50%       { transform: rotate(2deg); }
+}
+.hover-wiggle:hover {
+  animation: wiggle 0.3s ease-in-out 2;
 }
 
-.hover-wiggle:hover {
-  animation: wiggle 0.3s ease-in-out infinite;
+/* ─── Parallax helper ─────────────────────────────────────── */
+.parallax-slow {
+  will-change: transform;
+}
+
+/* ─── Confetti particle ───────────────────────────────────── */
+@keyframes confetti-fall {
+  0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(80px) rotate(720deg); opacity: 0; }
+}
+.confetti-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  animation: confetti-fall 0.8s ease-out forwards;
+  pointer-events: none;
+}
+
+/* ─── Reduce motion safe overrides ───────────────────────── */
+.reduce-motion .animate-float,
+.reduce-motion .animate-scroll-left,
+.reduce-motion .animate-shimmer,
+.reduce-motion .confetti-particle {
+  animation: none !important;
+}
+.reduce-motion .sticker-peel:hover {
+  transform: none !important;
+}
+.reduce-motion .holo-shine::before {
+  display: none !important;
+}
+
+/* ─── Orange focus ring ───────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
