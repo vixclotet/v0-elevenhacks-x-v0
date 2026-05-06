@@ -253,7 +253,17 @@
   100% { transform: translateX(-50%); }
 }
 .animate-scroll-left {
-  animation: scroll-left 30s linear infinite;
+  animation: scroll-left 36s linear infinite;
+  /* duration + play-state are overridden per-track via inline style */
+}
+
+@keyframes scroll-right {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.animate-scroll-right {
+  animation: scroll-right 42s linear infinite;
+  /* duration + play-state are overridden per-track via inline style */
 }
 
 /* ─── Wiggle on hover ─────────────────────────────────────── */
@@ -287,6 +297,7 @@
 /* ─── Reduce motion safe overrides ───────────────────────── */
 .reduce-motion .animate-float,
 .reduce-motion .animate-scroll-left,
+.reduce-motion .animate-scroll-right,
 .reduce-motion .animate-shimmer,
 .reduce-motion .confetti-particle {
   animation: none !important;
@@ -303,4 +314,139 @@
   outline: 2px solid var(--primary);
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NEUBRUTALIST DESIGN LAYER
+   Applied via .nb-* utility classes on individual components.
+   Does NOT override the base theme — layered on top.
+   ═══════════════════════════════════════════════════════════ */
+
+/* Hard offset box-shadow — the defining NB visual */
+.nb-shadow {
+  box-shadow: 4px 4px 0px 0px #111111;
+}
+.nb-shadow-sm {
+  box-shadow: 2px 2px 0px 0px #111111;
+}
+.nb-shadow-lg {
+  box-shadow: 6px 6px 0px 0px #111111;
+}
+.nb-shadow-primary {
+  box-shadow: 4px 4px 0px 0px var(--primary);
+}
+
+/* NB border — 2px solid black, zero radius */
+.nb-border {
+  border: 2px solid #111111;
+  border-radius: 0 !important;
+}
+.nb-border-primary {
+  border: 2px solid var(--primary);
+  border-radius: 0 !important;
+}
+
+/* NB card — white fill, hard black border + shadow */
+.nb-card {
+  background: oklch(1 0 0);
+  border: 2px solid #111111;
+  border-radius: 0 !important;
+  box-shadow: 4px 4px 0px 0px #111111;
+  transition: box-shadow 0.12s ease, transform 0.12s ease;
+}
+.nb-card:hover {
+  box-shadow: 6px 6px 0px 0px #111111;
+  transform: translate(-2px, -2px);
+}
+
+/* NB card — orange accent variant */
+.nb-card-accent {
+  background: var(--primary);
+  color: oklch(1 0 0);
+  border: 2px solid #111111;
+  border-radius: 0 !important;
+  box-shadow: 4px 4px 0px 0px #111111;
+}
+
+/* NB button — hard shadow, lifts on press */
+.nb-btn {
+  border: 2px solid #111111 !important;
+  border-radius: 0 !important;
+  box-shadow: 4px 4px 0px 0px #111111;
+  transition: box-shadow 0.1s ease, transform 0.1s ease;
+}
+.nb-btn:hover {
+  box-shadow: 6px 6px 0px 0px #111111;
+  transform: translate(-1px, -1px);
+}
+.nb-btn:active {
+  box-shadow: 0px 0px 0px 0px #111111;
+  transform: translate(4px, 4px);
+}
+
+/* NB tag / badge */
+.nb-tag {
+  display: inline-block;
+  padding: 2px 10px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: #111111;
+  color: #ffffff;
+  border-radius: 0;
+}
+.nb-tag-primary {
+  background: var(--primary);
+  color: #ffffff;
+}
+.nb-tag-cream {
+  background: oklch(0.98 0.005 90);
+  color: #111111;
+  border: 1.5px solid #111111;
+}
+
+/* ─── Dot-grid background pattern ────────────────────────── */
+/* Applied to specific sections that want the NB aesthetic.   */
+.nb-dot-grid {
+  background-image: radial-gradient(circle, rgba(0,0,0,0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Dark dot-grid for orange/dark backgrounds */
+.nb-dot-grid-light {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.18) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* ─── Ticker / marquee tape strip ────────────────────────── */
+.ticker-tape {
+  background: #111111;
+  color: #ffffff;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-top: 2px solid #111111;
+  border-bottom: 2px solid #111111;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-tape-inner {
+  display: inline-flex;
+  animation: scroll-left 28s linear infinite;
+}
+
+/* Orange variant */
+.ticker-tape-orange {
+  background: var(--primary);
+  border-color: #111111;
+}
+
+/* ─── Neubrutalist section divider ───────────────────────── */
+.nb-divider {
+  height: 3px;
+  background: #111111;
+  width: 100%;
 }
