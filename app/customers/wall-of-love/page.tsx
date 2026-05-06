@@ -8,6 +8,50 @@ import { Button } from "@/components/ui/button"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 
+// Official brand logos from the provided carousel image
+const featuredLogos = [
+  {
+    name: "lululemon",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Lululemon_Athletica_logo.svg/512px-Lululemon_Athletica_logo.svg.png",
+    dark: false,
+  },
+  {
+    name: "Nike",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/512px-Logo_NIKE.svg.png",
+    dark: true,
+  },
+  {
+    name: "Google",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/512px-Google_2015_logo.svg.png",
+    dark: false,
+  },
+  {
+    name: "Dropbox",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Dropbox_Logo_dropbox.svg/512px-Dropbox_Logo_dropbox.svg.png",
+    dark: false,
+  },
+  {
+    name: "Netflix",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/512px-Netflix_2015_logo.svg.png",
+    dark: false,
+  },
+  {
+    name: "Facebook",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/512px-Facebook_Logo_%282019%29.png",
+    dark: false,
+  },
+  {
+    name: "Microsoft",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/512px-Microsoft_logo.svg.png",
+    dark: false,
+  },
+  {
+    name: "GitHub",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/512px-GitHub_Invertocat_Logo.svg.png",
+    dark: true,
+  },
+]
+
 type Platform = "twitter" | "instagram" | "facebook" | "trustpilot"
 
 const PlatformIcon = ({ platform }: { platform: Platform }) => {

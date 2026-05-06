@@ -15,6 +15,50 @@ const stats = [
   { value: "98%", label: "On-time delivery", icon: TrendingUp },
 ]
 
+// Official logos from the provided carousel image
+const featuredLogos = [
+  {
+    name: "lululemon",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Lululemon_Athletica_logo.svg/512px-Lululemon_Athletica_logo.svg.png",
+    dark: false,
+  },
+  {
+    name: "Nike",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/512px-Logo_NIKE.svg.png",
+    dark: true,
+  },
+  {
+    name: "Google",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/512px-Google_2015_logo.svg.png",
+    dark: false,
+  },
+  {
+    name: "Dropbox",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Dropbox_Logo_dropbox.svg/512px-Dropbox_Logo_dropbox.svg.png",
+    dark: false,
+  },
+  {
+    name: "Netflix",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/512px-Netflix_2015_logo.svg.png",
+    dark: false,
+  },
+  {
+    name: "Facebook",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/512px-Facebook_Logo_%282019%29.png",
+    dark: false,
+  },
+  {
+    name: "Microsoft",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/512px-Microsoft_logo.svg.png",
+    dark: false,
+  },
+  {
+    name: "GitHub",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/512px-GitHub_Invertocat_Logo.svg.png",
+    dark: true,
+  },
+]
+
 const caseStudies = [
   {
     brand: "ShelterLuv",
@@ -143,6 +187,40 @@ export default function CustomerStoriesPage() {
                   </Button>
                 </Link>
               </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Trusted-by logo strip */}
+        <section className="bg-background border-b border-border py-10 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p className="text-center text-xs font-bold text-muted-foreground uppercase tracking-[0.2em] mb-8">
+              Stickers used by teams at
+            </p>
+            <motion.div
+              className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              {featuredLogos.map((logo, i) => (
+                <motion.div
+                  key={logo.name}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06 }}
+                  className="grayscale hover:grayscale-0 opacity-50 hover:opacity-100 transition-all duration-300 cursor-default"
+                  title={logo.name}
+                >
+                  <img
+                    src={logo.src}
+                    alt={logo.name}
+                    className={`h-7 w-auto max-w-[110px] object-contain ${logo.dark ? "dark:invert" : ""}`}
+                  />
+                </motion.div>
+              ))}
             </motion.div>
           </div>
         </section>
