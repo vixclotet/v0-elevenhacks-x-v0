@@ -22,9 +22,25 @@ const products = [
   { name: "T-Shirts", href: "#", description: "Custom apparel" },
 ]
 
+const customerLinks = [
+  {
+    name: "Customer Stories",
+    href: "/customers/stories",
+    description: "Case studies from 350K+ businesses worldwide",
+    icon: "📖",
+  },
+  {
+    name: "Wall of Love",
+    href: "/customers/wall-of-love",
+    description: "Real reviews and social media love from our community",
+    icon: "❤️",
+  },
+]
+
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [productsOpen, setProductsOpen] = useState(false)
+  const [customersOpen, setCustomersOpen] = useState(false)
   const [searchFocused, setSearchFocused] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const { reduceMotion, toggleReduceMotion } = useMotion()
@@ -108,6 +124,45 @@ export function Navbar() {
                         View all products
                       </Link>
                     </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Customers dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setCustomersOpen(true)}
+              onMouseLeave={() => setCustomersOpen(false)}
+            >
+              <button className="flex items-center gap-1 px-4 py-2 text-foreground/80 hover:text-foreground font-medium transition-colors rounded-lg hover:bg-muted">
+                Customers
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${customersOpen ? "rotate-180" : ""}`} />
+              </button>
+              <AnimatePresence>
+                {customersOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 8, scale: 0.97 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute top-full left-0 w-72 bg-card rounded-2xl shadow-2xl border border-border p-3 mt-2"
+                  >
+                    {customerLinks.map((link) => (
+                      <Link
+                        key={link.name}
+                        href={link.href}
+                        className="flex flex-col p-3 rounded-xl hover:bg-muted transition-colors group/item"
+                        onClick={playClick}
+                      >
+                        <span className="font-medium text-foreground group-hover/item:text-primary transition-colors text-sm">
+                          {link.name}
+                        </span>
+                        <span className="text-xs text-muted-foreground mt-0.5">
+                          {link.description}
+                        </span>
+                      </Link>
+                    ))}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -205,6 +260,14 @@ export function Navbar() {
                     {item}
                   </Link>
                 ))}
+                <div className="border-b border-border">
+                  <p className="px-2 pt-3 pb-1 text-xs font-bold text-muted-foreground uppercase tracking-widest">Customers</p>
+                  {customerLinks.map((link) => (
+                    <Link key={link.name} href={link.href} className="block py-2 px-4 font-medium text-foreground/80 hover:text-primary hover:bg-muted rounded-lg transition-colors text-sm" onClick={playClick}>
+                      {link.name}
+                    </Link>
+                  ))}
+                </div>
                 <Link href="#" className="block py-3 px-2 font-bold text-primary border-b border-border rounded-lg hover:bg-primary/5 transition-colors" onClick={playClick}>
                   Deals
                 </Link>

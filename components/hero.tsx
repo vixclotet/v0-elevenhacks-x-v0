@@ -22,26 +22,22 @@ const stats = [
 
 const floatingStickers = [
   {
-    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/as-web-Stickermule_-_169-gTixLqx96t4pDbrTvsn0Wo7KA1aTOQ.webp",
-    alt: "Custom taco die-cut stickers on orange background",
-    className: "absolute -bottom-8 -left-6 lg:-left-12 w-48 h-30 rounded-2xl border-4 border-card shadow-2xl cursor-pointer",
-    initial: { opacity: 0, scale: 0.8, rotate: -10 },
-    animate: { opacity: 1, scale: 1, rotate: -6 },
-    transition: { delay: 0.5 },
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/as-web-Stickermule_-_169-7xiYAkBhNMtrw4w9YO35xFK7Z4TBsi.webp",
+    alt: "Sticker Mule brand on orange background with cute taco die-cut stickers",
     float: { y: [0, -8, 0], rotate: [-6, -4, -6] },
     floatDuration: 4,
-    aspect: "aspect-video",
   },
   {
     src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/proof-Qry9TMI12cHokSjGKokiQEwabHwx46.png",
-    alt: "Sticker Mule holographic donkey mascot sticker",
-    className: "absolute -top-6 -right-4 lg:-right-10 w-24 h-24",
-    initial: { opacity: 0, y: -20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { delay: 0.9 },
+    alt: "Sticker Mule holographic donkey mascot sticker with glitter border",
     float: { y: [0, -12, 0], rotate: [-5, 5, -5] },
     floatDuration: 5,
-    aspect: "",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Die-Cut-Sticker-Printing-J6pKDHsfCLrArV8LLnRJoluFqjamt0.webp",
+    alt: "Custom die-cut sticker samples including dog, logo, thank you, burger and burrito stickers",
+    float: { y: [0, -6, 0], rotate: [3, 5, 3] },
+    floatDuration: 6,
   },
 ]
 
@@ -212,12 +208,12 @@ export function Hero() {
                 />
               </motion.div>
 
-              {/* Floating taco sticker card */}
+              {/* Floating taco brand card */}
               <motion.div
-                initial={floatingStickers[0].initial}
-                animate={floatingStickers[0].animate}
-                transition={floatingStickers[0].transition}
-                className="absolute -bottom-8 -left-6 lg:-left-12 w-48 rounded-2xl overflow-hidden border-4 border-card shadow-2xl cursor-pointer sticker-peel"
+                initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+                animate={{ opacity: 1, scale: 1, rotate: -6 }}
+                transition={{ delay: 0.5 }}
+                className="absolute -bottom-8 -left-6 lg:-left-12 w-52 rounded-2xl overflow-hidden border-4 border-card shadow-2xl cursor-pointer sticker-peel"
               >
                 <motion.div
                   animate={reduceMotion ? {} : { y: floatingStickers[0].float.y, rotate: floatingStickers[0].float.rotate }}
@@ -226,18 +222,18 @@ export function Hero() {
                   <Image
                     src={floatingStickers[0].src}
                     alt={floatingStickers[0].alt}
-                    width={240}
-                    height={135}
+                    width={260}
+                    height={146}
                     className="w-full object-cover aspect-video"
                   />
                 </motion.div>
               </motion.div>
 
-              {/* Floating mascot sticker */}
+              {/* Floating holographic mascot sticker */}
               <motion.div
-                initial={floatingStickers[1].initial}
-                animate={floatingStickers[1].animate}
-                transition={floatingStickers[1].transition}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9 }}
                 className="absolute -top-6 -right-4 lg:-right-10 w-24 h-24 hover-wiggle"
               >
                 <motion.div
@@ -250,6 +246,27 @@ export function Hero() {
                     width={96}
                     height={96}
                     className="w-full h-full object-contain drop-shadow-2xl"
+                  />
+                </motion.div>
+              </motion.div>
+
+              {/* Floating die-cut samples card */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, rotate: 8 }}
+                animate={{ opacity: 1, scale: 1, rotate: 4 }}
+                transition={{ delay: 1.1 }}
+                className="absolute bottom-16 -right-6 lg:-right-10 w-36 rounded-2xl overflow-hidden border-4 border-card shadow-2xl cursor-pointer sticker-peel"
+              >
+                <motion.div
+                  animate={reduceMotion ? {} : { y: floatingStickers[2].float.y, rotate: floatingStickers[2].float.rotate }}
+                  transition={{ duration: floatingStickers[2].floatDuration, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Image
+                    src={floatingStickers[2].src}
+                    alt={floatingStickers[2].alt}
+                    width={180}
+                    height={180}
+                    className="w-full object-cover aspect-square"
                   />
                 </motion.div>
               </motion.div>

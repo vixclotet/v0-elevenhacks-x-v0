@@ -65,22 +65,39 @@ export function LogoCarousel() {
         </motion.div>
       </div>
 
-      {/* Real sticker product image below */}
+      {/* Product showcase strip — 3 images side by side */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
-        <div className="relative rounded-3xl overflow-hidden shadow-xl">
-          <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Die-Cut-Vinyl-Stickers-UvKNC3BimnGrGgGOCmzu7T6i0DqvpL.jpg"
-            alt="Die-cut vinyl stickers showcasing popular brand logos including GitHub, Shopify, Twitter, and more"
-            width={1400}
-            height={500}
-            className="w-full object-cover max-h-72"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent" />
-          <div className="absolute bottom-6 left-6 right-6 text-center">
-            <p className="text-foreground font-bold text-lg drop-shadow-lg">
-              Die-cut to any shape. Premium vinyl. Weatherproof.
-            </p>
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {[
+            {
+              src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/product-3-nqnR9M6YzuCyIfh5TPIFOfNmxxQPQI.jpg",
+              alt: "Sticker Mule brand logo over a blurred mosaic of custom stickers",
+              caption: "Your brand. Any shape.",
+            },
+            {
+              src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hero-1-Zzx25kiQlliEghXzFE2y71QYkRuMZu.jpg",
+              alt: "University die-cut stickers including Ohio State, LSU, Harvard, and more campus brand stickers",
+              caption: "From campuses to enterprises.",
+            },
+            {
+              src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Die-Cut-Vinyl-Stickers-UvKNC3BimnGrGgGOCmzu7T6i0DqvpL.jpg",
+              alt: "Die-cut vinyl stickers with popular brand logos including GitHub, Shopify, and Twitter",
+              caption: "Loved by 350K+ businesses.",
+            },
+          ].map((img) => (
+            <div key={img.src} className="relative rounded-2xl overflow-hidden shadow-lg aspect-video group">
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <p className="absolute bottom-4 left-4 right-4 text-white font-bold text-sm drop-shadow-lg">
+                {img.caption}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
