@@ -98,7 +98,7 @@ export function Hero() {
               </div>
               <PlayMeButton
                 text="Welcome to Sticker Mule. Custom stickers, labels, and merch with free worldwide shipping. Trusted by over 350,000 businesses for lightning-fast, high-quality printing. Start designing for free today."
-                label="Hear our pitch"
+                label="Play me"
                 variant="pill"
               />
             </motion.div>

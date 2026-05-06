@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Volume2, Square, VolumeX, Loader2 } from "lucide-react"
 import { useAudio } from "@/components/audio-provider"
@@ -31,72 +31,65 @@ export function PlayMeButton({
   const [playState, setPlayState] = useState<PlayState>("idle")
   const [cancelFn, setCancelFn] = useState<(() => void) | null>(null)
 
+  const startPlaying = useCallback(() => {
+    setPlayState("loading")
+    const cancel = speak(text, voiceId)
+    setCancelFn(() => cancel)
+  }, [speak, text, voiceId])
+
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation()
       e.preventDefault()
 
-      // If voice is off, enable it first then speak
-      if (!voiceEnabled) {
-        toggleVoice()
-        // After toggle, the AudioProvider will handle the speak call on next render
-        // so we manually call the fetch here by bypassing the voiceEnabled guard
-        setPlayState("loading")
-        fetch("/api/tts", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: text.slice(0, 500), voiceId }),
-        })
-          .then((res) => res.blob())
-          .then((blob) => {
-            const url = URL.createObjectURL(blob)
-            const audio = new Audio(url)
-            audio.volume = 0.85
-            setPlayState("playing")
-            audio.play()
-            audio.onended = () => setPlayState("idle")
-            audio.onerror = () => setPlayState("idle")
-            const cancel = () => { audio.pause(); audio.currentTime = 0; setPlayState("idle") }
-            setCancelFn(() => cancel)
-          })
-          .catch(() => setPlayState("idle"))
-        return
-      }
-
       // If currently playing this button, stop
-      if (playState === "playing") {
+      if (playState === "playing" || playState === "loading") {
         if (cancelFn) cancelFn()
         stop()
         setPlayState("idle")
+        setCancelFn(null)
         return
       }
 
-      // Otherwise start speaking
-      setPlayState("loading")
-      const cancel = speak(text, voiceId)
-      setCancelFn(() => cancel)
+      // If voice is off, enable it then play immediately
+      if (!voiceEnabled) {
+        toggleVoice()
+        // Play is triggered by the effect below once voiceEnabled flips
+        setPlayState("loading")
+        return
+      }
 
-      // Detect when audio starts playing via the speaking flag change
-      // We poll briefly since speak() is async
-      const check = setInterval(() => {
-        if (speaking) {
-          setPlayState("playing")
-          clearInterval(check)
-        }
-      }, 50)
-      // Fallback: if after 4s still loading, assume playing started
-      setTimeout(() => {
-        clearInterval(check)
-        setPlayState((s) => (s === "loading" ? "playing" : s))
-      }, 4000)
+      // Voice already on — play directly
+      startPlaying()
     },
-    [voiceEnabled, toggleVoice, speak, stop, playState, cancelFn, speaking, text, voiceId]
+    [voiceEnabled, toggleVoice, speak, stop, playState, cancelFn, text, voiceId, startPlaying]
   )
 
-  // Stop indicator when global speaking ends
-  if (playState === "playing" && !speaking) {
-    setPlayState("idle")
-  }
+  // When voice becomes enabled AND we are in loading state (user clicked while voice was off),
+  // kick off the actual speak call now that the provider is ready.
+  const voiceEnabledRef = useRef(voiceEnabled)
+  useEffect(() => {
+    const wasDisabled = !voiceEnabledRef.current
+    voiceEnabledRef.current = voiceEnabled
+    if (wasDisabled && voiceEnabled && playState === "loading") {
+      startPlaying()
+    }
+  }, [voiceEnabled, playState, startPlaying])
+
+  // Sync local playState with the global speaking/loading flags from AudioProvider
+  // loading true  → this button triggered the fetch
+  // speaking true → audio is now playing
+  // both false    → audio ended or was stopped
+  // We only update if this button is the one that triggered playback
+  useEffect(() => {
+    if (playState === "loading" && speaking) {
+      setPlayState("playing")
+    } else if (playState === "playing" && !speaking) {
+      setPlayState("idle")
+    } else if (playState === "loading" && !speaking && cancelFn === null) {
+      setPlayState("idle")
+    }
+  }, [speaking, playState, cancelFn])
 
   if (variant === "icon") {
     return (
