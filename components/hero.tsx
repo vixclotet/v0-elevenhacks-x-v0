@@ -98,7 +98,7 @@ export function Hero() {
               </div>
               <PlayMeButton
                 text="Welcome to Sticker Mule. Custom stickers, labels, and merch with free worldwide shipping. Trusted by over 350,000 businesses for lightning-fast, high-quality printing. Start designing for free today."
-                label="Hear our pitch"
+                label="Play me"
                 variant="pill"
               />
             </motion.div>
@@ -214,8 +214,8 @@ export function Hero() {
                 className="relative rounded-3xl overflow-hidden shadow-2xl holo-shine"
               >
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-05-06%20at%209.33.15%E2%80%AFPM-dVXrpuDALYSQTZEh7M3rSx0TcM9Jj5.png"
-                  alt="Sticker Mule hero — custom stickers and merch that kick ass, with free worldwide shipping badge"
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hero_1x-Yjddh7IW92UvnWIwuSSHuP5FqFaoJ8.jpg"
+                  alt="Sticker Mule custom stickers spilling from a box — die-cut stickers, magnets, and custom merch"
                   width={640}
                   height={480}
                   className="w-full object-cover"

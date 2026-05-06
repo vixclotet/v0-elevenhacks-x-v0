@@ -142,8 +142,8 @@ export function Testimonials() {
               className="rounded-3xl overflow-hidden shadow-xl"
             >
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-05-06%20at%209.49.11%E2%80%AFPM-Dfv361mYFSxamI2lTPUIqFjS0RDRWr.png"
-                alt="Creators earning with Sticker Mule — testimonials from Sarah Chen, Marcus Johnson, Emily Rodriguez, and David Kim"
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/mobileCover-shmHmwHxY23QuiBihePBtiv3VBJ2Gn.jpg"
+                alt="Glitter stickers collection on orange background — You are worth everything, vintage looks good on you, and astronaut mule stickers"
                 width={600}
                 height={500}
                 className="w-full object-cover"
@@ -158,8 +158,8 @@ export function Testimonials() {
               className="rounded-3xl overflow-hidden shadow-xl"
             >
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-05-06%20at%209.49.11%E2%80%AFPM-Dfv361mYFSxamI2lTPUIqFjS0RDRWr.png"
-                alt="Sticker Mule glitter and acrylic products — You Are Worth Everything button, vintage looks good on you pin, and astronaut mule keychain"
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/9721811975cc03bfefa60845915416ee-Zq4dmRYknauhP18saygyznVC70IbEf.jpg"
+                alt="Glitter sticker video thumbnail — hand holding a holographic unicorn sticker on black card"
                 width={600}
                 height={340}
                 className="w-full object-cover"

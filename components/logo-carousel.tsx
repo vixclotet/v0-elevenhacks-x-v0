@@ -212,18 +212,18 @@ export function LogoCarousel() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             {
-              src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-05-06%20at%209.48.55%E2%80%AFPM-pgcn4hPrvoh9GJnnH3qBvKtNijmf6T.png",
-              alt: "Sticker Mule trusted by 350,000+ teams and creators including Dropbox, Facebook, GitHub, Spotify, Google, Netflix, Microsoft, Vercel and more",
+              src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/product-3-nqnR9M6YzuCyIfh5TPIFOfNmxxQPQI.jpg",
+              alt: "Custom die-cut stickers with Sticker Mule branding",
               caption: "Your brand. Any shape.",
             },
             {
-              src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-05-06%20at%209.48.55%E2%80%AFPM-pgcn4hPrvoh9GJnnH3qBvKtNijmf6T.png",
-              alt: "Sticker Mule product showcase — from campuses to enterprises, custom stickers for every business",
+              src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hero-1-Zzx25kiQlliEghXzFE2y71QYkRuMZu.jpg",
+              alt: "University stickers from Ohio State, LSU, Harvard and more",
               caption: "From campuses to enterprises.",
             },
             {
-              src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-05-06%20at%209.48.55%E2%80%AFPM-pgcn4hPrvoh9GJnnH3qBvKtNijmf6T.png",
-              alt: "Sticker Mule loved by 350K+ businesses — die-cut stickers, brand logos, and custom merch",
+              src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Die-Cut-Vinyl-Stickers-UvKNC3BimnGrGgGOCmzu7T6i0DqvpL.jpg",
+              alt: "Die-cut vinyl stickers with GitHub, Shopify, and Twitter logos",
               caption: "Loved by 350K+ businesses.",
             },
           ].map((img) => (

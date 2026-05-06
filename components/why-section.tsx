@@ -105,8 +105,8 @@ export function WhySection() {
         >
           <div className="rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-05-06%20at%209.49.03%E2%80%AFPM-gaRDPjGY8zQ2Gw1DBuxGavJssPgXER.png"
-              alt="Why 350,000+ businesses choose Sticker Mule — design with AI, real proofs in minutes, free worldwide shipping, pro selling tools"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images-C6ZIr4j6HUT72hbJUma3YeDgXE3xem.jpg"
+              alt="Colorful assortment of custom stickers — mushrooms, bikes, smiley faces, optimist text, and various artistic designs"
               width={800}
               height={500}
               className="w-full object-cover h-64 hover:scale-105 transition-transform duration-500"
@@ -114,8 +114,8 @@ export function WhySection() {
           </div>
           <div className="rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-05-06%20at%209.49.03%E2%80%AFPM-gaRDPjGY8zQ2Gw1DBuxGavJssPgXER.png"
-              alt="Sticker Mule buy and sell custom products — stickers, apparel, and branded merchandise"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/as-web-StickerMuleTT-_16_9-oQl3OAj2a7RZj7Scj6wHRAg222Q3HL.webp"
+              alt="Hand holding custom flame sunglasses sticker, with butterfly, avocado skull, and pixel art stickers on orange background"
               width={800}
               height={500}
               className="w-full object-cover h-64 hover:scale-105 transition-transform duration-500"
