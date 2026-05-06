@@ -253,7 +253,21 @@
   100% { transform: translateX(-50%); }
 }
 .animate-scroll-left {
-  animation: scroll-left 30s linear infinite;
+  animation: scroll-left 36s linear infinite;
+}
+.animate-scroll-left:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-right {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.animate-scroll-right {
+  animation: scroll-right 42s linear infinite;
+}
+.animate-scroll-right:hover {
+  animation-play-state: paused;
 }
 
 /* ─── Wiggle on hover ─────────────────────────────────────── */
@@ -287,6 +301,7 @@
 /* ─── Reduce motion safe overrides ───────────────────────── */
 .reduce-motion .animate-float,
 .reduce-motion .animate-scroll-left,
+.reduce-motion .animate-scroll-right,
 .reduce-motion .animate-shimmer,
 .reduce-motion .confetti-particle {
   animation: none !important;

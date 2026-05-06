@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { Search, ShoppingCart, User, Menu, X, ChevronDown, Sparkles, Pause, Play } from "lucide-react"
+import { Search, ShoppingCart, User, Menu, X, ChevronDown, Sparkles, Pause, Play, BookOpen, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { createClickSound } from "@/lib/sounds"
@@ -27,13 +27,13 @@ const customerLinks = [
     name: "Customer Stories",
     href: "/customers/stories",
     description: "Case studies from 350K+ businesses worldwide",
-    icon: "📖",
+    Icon: BookOpen,
   },
   {
     name: "Wall of Love",
     href: "/customers/wall-of-love",
     description: "Real reviews and social media love from our community",
-    icon: "❤️",
+    Icon: Heart,
   },
 ]
 
@@ -152,15 +152,20 @@ export function Navbar() {
                       <Link
                         key={link.name}
                         href={link.href}
-                        className="flex flex-col p-3 rounded-xl hover:bg-muted transition-colors group/item"
+                        className="flex items-start gap-3 p-3 rounded-xl hover:bg-muted transition-colors group/item"
                         onClick={playClick}
                       >
-                        <span className="font-medium text-foreground group-hover/item:text-primary transition-colors text-sm">
-                          {link.name}
-                        </span>
-                        <span className="text-xs text-muted-foreground mt-0.5">
-                          {link.description}
-                        </span>
+                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover/item:bg-primary/20 transition-colors">
+                          <link.Icon className="w-4 h-4 text-primary" aria-hidden="true" />
+                        </div>
+                        <div>
+                          <span className="block font-medium text-foreground group-hover/item:text-primary transition-colors text-sm">
+                            {link.name}
+                          </span>
+                          <span className="block text-xs text-muted-foreground mt-0.5">
+                            {link.description}
+                          </span>
+                        </div>
                       </Link>
                     ))}
                   </motion.div>
@@ -263,7 +268,8 @@ export function Navbar() {
                 <div className="border-b border-border">
                   <p className="px-2 pt-3 pb-1 text-xs font-bold text-muted-foreground uppercase tracking-widest">Customers</p>
                   {customerLinks.map((link) => (
-                    <Link key={link.name} href={link.href} className="block py-2 px-4 font-medium text-foreground/80 hover:text-primary hover:bg-muted rounded-lg transition-colors text-sm" onClick={playClick}>
+                    <Link key={link.name} href={link.href} className="flex items-center gap-2 py-2 px-4 font-medium text-foreground/80 hover:text-primary hover:bg-muted rounded-lg transition-colors text-sm" onClick={playClick}>
+                      <link.Icon className="w-4 h-4 text-primary flex-shrink-0" aria-hidden="true" />
                       {link.name}
                     </Link>
                   ))}
