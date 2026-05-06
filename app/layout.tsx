@@ -28,13 +28,13 @@ export const metadata: Metadata = {
     title: 'Sticker Mule | Custom Stickers & Merch That Kicks Ass',
     description: 'Create custom stickers, labels, magnets, buttons, and more with free worldwide shipping.',
     type: 'website',
-    images: [{ url: '/favicon.jpg', width: 512, height: 512, alt: 'Sticker Mule' }],
+    images: [{ url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-05-06%20at%209.33.15%E2%80%AFPM-E2kiR7ULDsDbnpIt5qHYnZ4httlqkD.png', width: 1456, height: 816, alt: 'Sticker Mule — Custom stickers & merch that kick ass' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Sticker Mule | Custom Stickers & Merch That Kicks Ass',
     description: 'Create custom stickers, labels, magnets, buttons, and more with free worldwide shipping.',
-    images: ['/favicon.jpg'],
+    images: ['https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-05-06%20at%209.33.15%E2%80%AFPM-E2kiR7ULDsDbnpIt5qHYnZ4httlqkD.png'],
   },
 }
 
