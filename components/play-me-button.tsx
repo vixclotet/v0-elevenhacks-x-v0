@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback, useEffect } from "react"
+import { useState, useCallback, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Volume2, Square, VolumeX, Loader2 } from "lucide-react"
 import { useAudio } from "@/components/audio-provider"
@@ -31,32 +31,50 @@ export function PlayMeButton({
   const [playState, setPlayState] = useState<PlayState>("idle")
   const [cancelFn, setCancelFn] = useState<(() => void) | null>(null)
 
+  const startPlaying = useCallback(() => {
+    setPlayState("loading")
+    const cancel = speak(text, voiceId)
+    setCancelFn(() => cancel)
+  }, [speak, text, voiceId])
+
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation()
       e.preventDefault()
 
-      // If voice is off, just enable it — do not play yet
-      if (!voiceEnabled) {
-        toggleVoice()
-        return
-      }
-
       // If currently playing this button, stop
-      if (playState === "playing") {
+      if (playState === "playing" || playState === "loading") {
         if (cancelFn) cancelFn()
         stop()
         setPlayState("idle")
+        setCancelFn(null)
         return
       }
 
-      // Start speaking via the single AudioProvider path only
-      setPlayState("loading")
-      const cancel = speak(text, voiceId)
-      setCancelFn(() => cancel)
+      // If voice is off, enable it then play immediately
+      if (!voiceEnabled) {
+        toggleVoice()
+        // Play is triggered by the effect below once voiceEnabled flips
+        setPlayState("loading")
+        return
+      }
+
+      // Voice already on — play directly
+      startPlaying()
     },
-    [voiceEnabled, toggleVoice, speak, stop, playState, cancelFn, text, voiceId]
+    [voiceEnabled, toggleVoice, speak, stop, playState, cancelFn, text, voiceId, startPlaying]
   )
+
+  // When voice becomes enabled AND we are in loading state (user clicked while voice was off),
+  // kick off the actual speak call now that the provider is ready.
+  const voiceEnabledRef = useRef(voiceEnabled)
+  useEffect(() => {
+    const wasDisabled = !voiceEnabledRef.current
+    voiceEnabledRef.current = voiceEnabled
+    if (wasDisabled && voiceEnabled && playState === "loading") {
+      startPlaying()
+    }
+  }, [voiceEnabled, playState, startPlaying])
 
   // Sync local playState with the global speaking/loading flags from AudioProvider
   // loading true  → this button triggered the fetch

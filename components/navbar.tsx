@@ -67,15 +67,7 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  // First-visit welcome announcement
-  useEffect(() => {
-    if (!voiceEnabled) return
-    const welcomed = sessionStorage.getItem("sm_welcomed")
-    if (welcomed) return
-    sessionStorage.setItem("sm_welcomed", "1")
-    const cancel = speak(WELCOME_TEXT)
-    return cancel
-  }, [voiceEnabled, speak])
+  // No auto-play on voice enable — user must explicitly click a Play button
 
   // Close voice panel on outside click
   useEffect(() => {
