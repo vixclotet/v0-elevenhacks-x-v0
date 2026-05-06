@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="14" fill="#FF4D00"/>
+  <!-- Mule silhouette (simplified) -->
+  <!-- Body -->
+  <ellipse cx="33" cy="38" rx="16" ry="11" fill="white"/>
+  <!-- Head -->
+  <ellipse cx="46" cy="28" rx="9" ry="7" fill="white"/>
+  <!-- Snout -->
+  <ellipse cx="53" cy="30" rx="4" ry="3" fill="white"/>
+  <!-- Ears -->
+  <ellipse cx="42" cy="21" rx="3" ry="5" fill="white" transform="rotate(-10 42 21)"/>
+  <ellipse cx="48" cy="20" rx="2.5" ry="4.5" fill="white" transform="rotate(10 48 20)"/>
+  <!-- Legs -->
+  <rect x="20" y="47" width="5" height="9" rx="2.5" fill="white"/>
+  <rect x="28" y="47" width="5" height="9" rx="2.5" fill="white"/>
+  <rect x="36" y="47" width="5" height="9" rx="2.5" fill="white"/>
+  <rect x="44" y="47" width="5" height="9" rx="2.5" fill="white"/>
+  <!-- Tail -->
+  <path d="M17 36 Q10 30 13 22 Q15 18 17 22" stroke="white" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <!-- Eye -->
+  <circle cx="50" cy="27" r="1.5" fill="#FF4D00"/>
+</svg>

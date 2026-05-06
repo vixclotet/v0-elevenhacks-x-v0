@@ -1,12 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useCallback } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { createPeelSound, createClickSound, createSuccessSound } from "@/lib/sounds"
 import { ConfettiBurst } from "@/components/confetti-burst"
+import { useAudio } from "@/components/audio-provider"
 
 const products = [
   {
@@ -79,6 +80,22 @@ export function BestSellers() {
   const playPeel = createPeelSound()
   const playClick = createClickSound()
   const playSuccess = createSuccessSound()
+  const { speak, voiceEnabled } = useAudio()
+  // Track the cancel function for the current hover read-aloud
+  const cancelVoiceRef = useRef<(() => void) | null>(null)
+
+  const handleProductHover = useCallback((product: { name: string; description: string; price: string }) => {
+    playPeel()
+    if (voiceEnabled) {
+      // Cancel any previous read-aloud before starting new one
+      if (cancelVoiceRef.current) {
+        cancelVoiceRef.current()
+        cancelVoiceRef.current = null
+      }
+      const text = `${product.name}. ${product.description}. Starting at ${product.price}.`
+      cancelVoiceRef.current = speak(text)
+    }
+  }, [voiceEnabled, speak, playPeel])
 
   const handleCustomize = (index: number) => {
     setConfettiCard(index)
@@ -123,7 +140,7 @@ export function BestSellers() {
               whileInView={{ opacity: 1, y: 0, rotate: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.07, type: "spring", stiffness: 200, damping: 20 }}
-              onHoverStart={playPeel}
+              onHoverStart={() => handleProductHover(product)}
               className="group relative bg-card rounded-3xl overflow-hidden border border-border hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-shadow duration-300 cursor-pointer sticker-peel holo-shine"
             >
               {/* Confetti burst on Customize click */}
