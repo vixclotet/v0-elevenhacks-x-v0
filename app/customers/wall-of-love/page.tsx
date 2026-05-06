@@ -72,6 +72,8 @@ const reviews: {
   id: number
   name: string
   handle: string
+  company: string
+  companyLogo: string
   avatar: string
   platform: Platform
   stars: number
@@ -84,21 +86,25 @@ const reviews: {
     id: 1,
     name: "Emily Rodriguez",
     handle: "@emilydesigns",
+    company: "Nike",
+    companyLogo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/512px-Logo_NIKE.svg.png",
     avatar: "/avatars/avatar-1.jpg",
-    platform: "twitter",
+    platform: "twitter" as Platform,
     stars: 5,
-    text: "Just got my sticker order from @stickermule and I am OBSESSED. Die-cut perfection. The colors are so vibrant and they arrived in literally 4 days. My whole team is losing their minds over these. 10/10 would recommend to every brand owner.",
+    text: "Just got our swag order from @stickermule for the Nike design team and I am OBSESSED. Die-cut perfection. The colors are so vibrant and they arrived in literally 4 days. The whole team is losing their minds over these. 10/10.",
     date: "May 2, 2025",
     verified: true,
   },
   {
     id: 2,
     name: "Marcus Webb",
-    handle: "@marcusmakesstuff",
+    handle: "@marcuswebb",
+    company: "Google",
+    companyLogo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/512px-Google_2015_logo.svg.png",
     avatar: "/avatars/avatar-2.jpg",
-    platform: "instagram",
+    platform: "instagram" as Platform,
     stars: 5,
-    text: "Ordered sticker packs for my indie coffee brand and the quality is unreal. Every sticker is cut to perfection with zero bleed. Sticker Mule just became my go-to printer forever.",
+    text: "Ordered sticker packs for the Google Developer Advocates team swag boxes and the quality is unreal. Every sticker is cut to perfection with zero bleed. Sticker Mule is our official go-to printer now.",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gallery_1-oG0vAOWCk2fKfHwsQBy0XR8crf9I4j.webp",
     date: "April 28, 2025",
     verified: true,
@@ -107,10 +113,12 @@ const reviews: {
     id: 3,
     name: "Priya Nair",
     handle: "@priya.creates",
+    company: "Microsoft",
+    companyLogo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/512px-Microsoft_logo.svg.png",
     avatar: "/avatars/avatar-3.jpg",
-    platform: "trustpilot",
+    platform: "trustpilot" as Platform,
     stars: 5,
-    text: "The free proof process saved me so much time and stress. The designer caught a resolution issue before print. Best customer service I've experienced with any print company. My sticker sheets came out absolutely stunning.",
+    text: "The free proof process saved our Microsoft Surface launch team so much stress. The designer caught a resolution issue before print. Best customer service I have experienced with any print company. Sticker sheets came out stunning.",
     date: "April 22, 2025",
     verified: true,
   },
@@ -118,10 +126,12 @@ const reviews: {
     id: 4,
     name: "Jake Thornton",
     handle: "@jakethorntonco",
+    company: "Dropbox",
+    companyLogo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Dropbox_Logo_dropbox.svg/512px-Dropbox_Logo_dropbox.svg.png",
     avatar: "/avatars/avatar-4.jpg",
-    platform: "twitter",
+    platform: "twitter" as Platform,
     stars: 5,
-    text: "Ordered holographic stickers for our SaaS swag bags and they were the talk of the conference. Everyone kept asking where we got them. @stickermule is unmatched for conference merch. Already placed my next order.",
+    text: "Ordered holographic stickers for Dropbox's conference swag bags and they were the talk of every booth. Everyone kept asking where we got them. @stickermule is unmatched for conference merch. Already placed the next order.",
     date: "April 19, 2025",
     verified: false,
   },
@@ -129,10 +139,12 @@ const reviews: {
     id: 5,
     name: "Sofia Delgado",
     handle: "@sofiacrafts",
+    company: "Netflix",
+    companyLogo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/512px-Netflix_2015_logo.svg.png",
     avatar: "/avatars/avatar-5.jpg",
-    platform: "instagram",
+    platform: "instagram" as Platform,
     stars: 5,
-    text: "Custom sticker packs for my Etsy shop have been an absolute game changer. Customers love the quality and I love the fast turnaround. Have already reordered 3 times this month!",
+    text: "Custom sticker packs for the Netflix Creator Program merch kits have been an absolute game changer. Influencers love the quality and I love the fast turnaround. Have already reordered 3 times this month!",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images-TkuADbbED2vDJ6cGUNJ4mja54qF4ev.jpg",
     date: "April 15, 2025",
     verified: true,
@@ -141,10 +153,12 @@ const reviews: {
     id: 6,
     name: "Devon Clark",
     handle: "@devonclarkart",
+    company: "GitHub",
+    companyLogo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/512px-GitHub_Invertocat_Logo.svg.png",
     avatar: "/avatars/avatar-6.jpg",
-    platform: "facebook",
+    platform: "facebook" as Platform,
     stars: 5,
-    text: "I've tried every major sticker printer and nothing comes close to Sticker Mule. The glitter stickers for my art prints are breathtaking. Packaging was perfect and delivery was faster than I expected.",
+    text: "The GitHub Universe conference stickers came out breathtaking. Nothing comes close to Sticker Mule's holographic and glitter options. Packaging was perfect and delivery was faster than expected. This is our third year using them.",
     date: "April 10, 2025",
     verified: true,
   },
@@ -152,10 +166,12 @@ const reviews: {
     id: 7,
     name: "Helen Park",
     handle: "@helenparkcreative",
+    company: "lululemon",
+    companyLogo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Lululemon_Athletica_logo.svg/512px-Lululemon_Athletica_logo.svg.png",
     avatar: "/avatars/avatar-7.jpg",
-    platform: "trustpilot",
+    platform: "trustpilot" as Platform,
     stars: 5,
-    text: "Ordered 500 die-cut stickers for our school fundraiser. They arrived two days early, every single one was perfect, and the kids absolutely loved them. Will 100% use Sticker Mule for all future school events.",
+    text: "Ordered 2,000 die-cut stickers for lululemon's community ambassador kits. They arrived two days early, every single one was perfect, and the ambassadors absolutely loved them. Will 100% use Sticker Mule for all future campaigns.",
     date: "April 7, 2025",
     verified: true,
   },
@@ -163,10 +179,12 @@ const reviews: {
     id: 8,
     name: "Alex Morse",
     handle: "@alexmorseskates",
+    company: "Facebook",
+    companyLogo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/512px-Facebook_Logo_%282019%29.png",
     avatar: "/avatars/avatar-8.jpg",
-    platform: "twitter",
+    platform: "twitter" as Platform,
     stars: 5,
-    text: "Sticker Mule's keychains for my skate brand sold out in 48 hours. The protective film kept them scratch-free all the way to customers. Incredible product. Already running a second batch.",
+    text: "Sticker Mule's keychains for the Meta Developers merch store sold out in 48 hours. The protective film kept every piece scratch-free all the way to customers worldwide. Already running a second batch.",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/sm-keychains4-KHF95C6OZBSRs9yP3q6lslbDdE2tj4.jpg",
     date: "April 3, 2025",
     verified: false,
@@ -175,10 +193,12 @@ const reviews: {
     id: 9,
     name: "Emily Rodriguez",
     handle: "@emilydesigns",
+    company: "Nike",
+    companyLogo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/512px-Logo_NIKE.svg.png",
     avatar: "/avatars/avatar-1.jpg",
-    platform: "instagram",
+    platform: "instagram" as Platform,
     stars: 5,
-    text: "The notebook sticker sheets I ordered look EXACTLY like my design files. Color accuracy is insane. My followers keep asking where I print — @stickermule every time, no question.",
+    text: "The sticker sheets for our Nike Run Club collabs look EXACTLY like my design files. Color accuracy is insane. My followers keep asking where we print — @stickermule every single time, no question.",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gallery_2-m5bQhJlNHq8nNDxtEXnix8QSIZKZto.webp",
     date: "March 29, 2025",
     verified: true,
@@ -186,11 +206,13 @@ const reviews: {
   {
     id: 10,
     name: "Marcus Webb",
-    handle: "@marcusmakesstuff",
+    handle: "@marcuswebb",
+    company: "Google",
+    companyLogo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/512px-Google_2015_logo.svg.png",
     avatar: "/avatars/avatar-2.jpg",
-    platform: "trustpilot",
+    platform: "trustpilot" as Platform,
     stars: 5,
-    text: "Ordered custom sticker packs for 5 different clients this quarter and every single one was flawless. Sticker Mule is basically my secret weapon. My clients keep coming back asking for more.",
+    text: "Ordered custom sticker packs for 5 different Google product launches this quarter and every single one was flawless. Sticker Mule is basically our internal secret weapon. Every PM keeps coming back asking for more.",
     date: "March 25, 2025",
     verified: true,
   },
@@ -198,10 +220,12 @@ const reviews: {
     id: 11,
     name: "Priya Nair",
     handle: "@priya.creates",
+    company: "Microsoft",
+    companyLogo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/512px-Microsoft_logo.svg.png",
     avatar: "/avatars/avatar-3.jpg",
-    platform: "twitter",
+    platform: "twitter" as Platform,
     stars: 5,
-    text: "The 'Good Vibes Only' stickers I designed came out PERFECT. Sticker Mule's print quality is in a league of its own. Free shipping worldwide is just the cherry on top. Already recommending to every designer I know.",
+    text: "The custom stickers I designed for Microsoft Build came out PERFECT. Sticker Mule print quality is in a league of its own. Free worldwide shipping is just the cherry on top. Recommending to every design lead I know.",
     date: "March 20, 2025",
     verified: false,
   },
@@ -209,10 +233,12 @@ const reviews: {
     id: 12,
     name: "Devon Clark",
     handle: "@devonclarkart",
+    company: "GitHub",
+    companyLogo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/512px-GitHub_Invertocat_Logo.svg.png",
     avatar: "/avatars/avatar-6.jpg",
-    platform: "instagram",
+    platform: "instagram" as Platform,
     stars: 5,
-    text: "This is my 12th order with Sticker Mule and they just keep getting better. Consistent quality, amazing support, and the fastest shipping in the business. Literally the only printer I trust for client work.",
+    text: "This is our 12th GitHub Constellation order with Sticker Mule and they just keep getting better. Consistent quality, amazing support, fastest shipping in the business. The only printer we trust for event merch.",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/mobileCover-shmHmwHxY23QuiBihePBtiv3VBJ2Gn.jpg",
     date: "March 15, 2025",
     verified: true,
@@ -252,7 +278,7 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
             />
           </div>
           <div>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5 flex-wrap">
               <span className="font-semibold text-sm text-foreground">{review.name}</span>
               {review.verified && (
                 <span className="w-4 h-4 bg-primary rounded-full flex items-center justify-center flex-shrink-0" aria-label="Verified">
@@ -260,7 +286,17 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
                 </span>
               )}
             </div>
-            <div className="text-xs text-muted-foreground">{review.handle}</div>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className="text-xs text-muted-foreground">{review.handle}</span>
+              {review.companyLogo && (
+                <img
+                  src={review.companyLogo}
+                  alt={review.company}
+                  className="h-3.5 w-auto max-w-[56px] object-contain grayscale opacity-60"
+                  title={review.company}
+                />
+              )}
+            </div>
           </div>
         </div>
         <div className="flex items-center gap-1 text-muted-foreground flex-shrink-0">
@@ -374,6 +410,40 @@ export default function WallOfLovePage() {
                 </button>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* "Reviewers from" brand logo strip */}
+        <section className="bg-card border-b border-border py-10 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p className="text-center text-xs font-bold text-muted-foreground uppercase tracking-[0.2em] mb-8">
+              Reviews from teams at
+            </p>
+            <motion.div
+              className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              {featuredLogos.map((logo, i) => (
+                <motion.div
+                  key={logo.name}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06, type: "spring", stiffness: 200 }}
+                  className="grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300 cursor-default"
+                  title={logo.name}
+                >
+                  <img
+                    src={logo.src}
+                    alt={logo.name}
+                    className={`h-7 w-auto max-w-[110px] object-contain ${logo.dark ? "dark:invert" : ""}`}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
         </section>
 
