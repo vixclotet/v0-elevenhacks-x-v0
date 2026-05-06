@@ -10,6 +10,11 @@ import {
   type ReactNode,
 } from "react"
 
+// ─── Constants ────────────────────────────────────────────────────────────────
+
+/** Maximum number of blob URLs kept in memory. Oldest are evicted when exceeded. */
+const CACHE_MAX_SIZE = 20
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 type AudioContextValue = {
@@ -23,10 +28,62 @@ type AudioContextValue = {
   setVolume: (v: number) => void
   /** Speak text via ElevenLabs TTS. Returns a cancel function. */
   speak: (text: string, voiceId?: string) => () => void
-  /** Whether audio is currently playing */
+  /** Whether audio is currently buffering from the network */
+  loading: boolean
+  /** Whether audio is actively playing */
   speaking: boolean
   /** Stop any current audio immediately */
   stop: () => void
+}
+
+// ─── LRU Cache ────────────────────────────────────────────────────────────────
+
+/**
+ * A minimal LRU cache backed by an insertion-ordered Map.
+ * When the cache exceeds maxSize, the oldest entry's ObjectURL is revoked
+ * and the entry is deleted to prevent memory leaks.
+ */
+class LRUBlobCache {
+  private map = new Map<string, string>()
+  private maxSize: number
+
+  constructor(maxSize: number) {
+    this.maxSize = maxSize
+  }
+
+  get(key: string): string | undefined {
+    const val = this.map.get(key)
+    if (val !== undefined) {
+      // Re-insert to mark as recently used
+      this.map.delete(key)
+      this.map.set(key, val)
+    }
+    return val
+  }
+
+  set(key: string, url: string): void {
+    if (this.map.has(key)) {
+      this.map.delete(key)
+    }
+    // Evict oldest when at capacity
+    if (this.map.size >= this.maxSize) {
+      const oldestKey = this.map.keys().next().value
+      if (oldestKey !== undefined) {
+        const oldUrl = this.map.get(oldestKey)
+        if (oldUrl) URL.revokeObjectURL(oldUrl)
+        this.map.delete(oldestKey)
+      }
+    }
+    this.map.set(key, url)
+  }
+
+  /** Revoke all ObjectURLs and clear the cache (call on unmount if needed). */
+  clear(): void {
+    for (const url of this.map.values()) {
+      URL.revokeObjectURL(url)
+    }
+    this.map.clear()
+  }
 }
 
 // ─── Context ──────────────────────────────────────────────────────────────────
@@ -42,14 +99,13 @@ export function useAudio(): AudioContextValue {
 // ─── Provider ─────────────────────────────────────────────────────────────────
 
 export function AudioProvider({ children }: { children: ReactNode }) {
-  // Persist preference to localStorage
   const [voiceEnabled, setVoiceEnabled] = useState(false)
   const [volume, setVolumeState] = useState(0.85)
   const [speaking, setSpeaking] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  // Simple in-memory cache: text → objectURL
-  const cacheRef = useRef<Map<string, string>>(new Map())
+  const cacheRef = useRef(new LRUBlobCache(CACHE_MAX_SIZE))
 
   // Load preferences from localStorage on mount
   useEffect(() => {
@@ -58,9 +114,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
       if (stored !== null) setVoiceEnabled(stored === "true")
       const vol = localStorage.getItem("sm_voice_volume")
       if (vol !== null) setVolumeState(parseFloat(vol))
-    } catch {
-      // ignore
-    }
+    } catch { /* ignore */ }
   }, [])
 
   const toggleVoice = useCallback(() => {
@@ -84,6 +138,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
       audioRef.current.currentTime = 0
     }
     setSpeaking(false)
+    setLoading(false)
   }, [])
 
   const speak = useCallback(
@@ -98,22 +153,41 @@ export function AudioProvider({ children }: { children: ReactNode }) {
         let src: string | undefined = cacheRef.current.get(cacheKey)
 
         if (!src) {
-          try {
-            const res = await fetch("/api/tts", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ text: text.slice(0, 500), voiceId }),
-            })
-            if (!res.ok) return
-            const blob = await res.blob()
-            src = URL.createObjectURL(blob)
-            cacheRef.current.set(cacheKey, src)
-          } catch {
+          setLoading(true)
+          let attempt = 0
+          const maxAttempts = 2
+
+          while (attempt < maxAttempts) {
+            try {
+              const res = await fetch("/api/tts", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: text.slice(0, 500), voiceId }),
+              })
+              if (!res.ok) throw new Error(`TTS HTTP ${res.status}`)
+              const blob = await res.blob()
+              src = URL.createObjectURL(blob)
+              cacheRef.current.set(cacheKey, src)
+              break
+            } catch {
+              attempt++
+              if (attempt < maxAttempts) {
+                // Exponential backoff: 400ms, then 800ms
+                await new Promise((r) => setTimeout(r, 400 * attempt))
+              }
+            }
+          }
+
+          if (!src) {
+            setLoading(false)
             return
           }
         }
 
-        if (cancelled) return
+        if (cancelled) {
+          setLoading(false)
+          return
+        }
 
         // Stop any previous audio
         if (audioRef.current) {
@@ -123,12 +197,14 @@ export function AudioProvider({ children }: { children: ReactNode }) {
         const audio = new Audio(src)
         audio.volume = volume
         audioRef.current = audio
+
+        setLoading(false)
         setSpeaking(true)
 
         audio.onended = () => setSpeaking(false)
-        audio.onerror = () => setSpeaking(false)
+        audio.onerror = () => { setSpeaking(false); setLoading(false) }
 
-        audio.play().catch(() => setSpeaking(false))
+        audio.play().catch(() => { setSpeaking(false); setLoading(false) })
       }
 
       run()
@@ -142,7 +218,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   )
 
   return (
-    <AudioCtx.Provider value={{ voiceEnabled, toggleVoice, volume, setVolume, speak, speaking, stop }}>
+    <AudioCtx.Provider value={{ voiceEnabled, toggleVoice, volume, setVolume, speak, loading, speaking, stop }}>
       {children}
     </AudioCtx.Provider>
   )
