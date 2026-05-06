@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
+import { LogoCarousel } from "@/components/logo-carousel"
 import { ValueCards } from "@/components/value-cards"
 import { BestSellers } from "@/components/best-sellers"
 import { Testimonials } from "@/components/testimonials"
@@ -12,6 +13,7 @@ export default function HomePage() {
     <main className="min-h-screen">
       <Navbar />
       <Hero />
+      <LogoCarousel />
       <ValueCards />
       <BestSellers />
       <Testimonials />

@@ -1,65 +1,44 @@
 "use client"
 
+import { useEffect, useRef } from "react"
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Check, Star, Truck, Zap, FileCheck } from "lucide-react"
-
-const trustLogos = [
-  "GitHub", "Spotify", "Nike", "Coca-Cola", "Airbnb", "Stripe", "Slack", "Dropbox"
-]
+import { ArrowRight, Check, Star, Truck, FileCheck, Zap } from "lucide-react"
+import { createClickSound } from "@/lib/sounds"
 
 const features = [
   { icon: Truck, text: "Free worldwide shipping" },
   { icon: FileCheck, text: "Free proofs" },
-  { icon: Zap, text: "Ships in days" },
+  { icon: Zap, text: "Ships in 4 days" },
+]
+
+const stats = [
+  { value: "350K+", label: "Happy businesses" },
+  { value: "100M+", label: "Stickers shipped" },
+  { value: "4.7★", label: "Average rating" },
 ]
 
 export function Hero() {
-  return (
-    <section className="relative min-h-screen pt-20 lg:pt-24 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 -z-10">
-        {/* Gradient background */}
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-primary/10 via-transparent to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-accent/10 via-transparent to-transparent rounded-full blur-3xl" />
-        
-        {/* Floating stickers */}
-        <motion.div 
-          animate={{ 
-            y: [0, -20, 0],
-            rotate: [0, 5, 0]
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-32 right-[15%] w-24 h-24 bg-gradient-to-br from-primary to-primary/80 rounded-2xl shadow-2xl hidden lg:block"
-          style={{ transform: "rotate(-12deg)" }}
-        />
-        <motion.div 
-          animate={{ 
-            y: [0, 15, 0],
-            rotate: [0, -3, 0]
-          }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute top-64 right-[8%] w-16 h-16 bg-gradient-to-br from-accent to-accent/80 rounded-xl shadow-xl hidden lg:block"
-          style={{ transform: "rotate(8deg)" }}
-        />
-        <motion.div 
-          animate={{ 
-            y: [0, -15, 0],
-            rotate: [0, 8, 0]
-          }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-48 left-[10%] w-20 h-20 bg-gradient-to-br from-secondary to-secondary/80 rounded-2xl shadow-xl hidden lg:block"
-          style={{ transform: "rotate(-5deg)" }}
-        />
-      </div>
+  const playClick = createClickSound()
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-24">
+  return (
+    <section className="relative min-h-screen pt-20 lg:pt-24 overflow-hidden bg-background">
+      {/* Subtle bg texture */}
+      <div className="absolute inset-0 -z-10 opacity-30"
+        style={{
+          backgroundImage: `radial-gradient(circle at 20% 50%, oklch(0.62 0.24 30 / 0.08) 0%, transparent 60%),
+            radial-gradient(circle at 80% 20%, oklch(0.75 0.15 200 / 0.06) 0%, transparent 50%)`
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Content */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
             className="text-center lg:text-left"
           >
             {/* Badge */}
@@ -74,22 +53,45 @@ export function Hero() {
             </motion.div>
 
             {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-tight text-balance">
-              Custom stickers & merch that{" "}
-              <span className="text-primary">actually kick ass</span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-foreground leading-[1.05] text-balance">
+              Custom stickers{" "}
+              <span className="relative inline-block">
+                <span className="text-primary">&amp; merch</span>
+              </span>
+              {" "}that actually{" "}
+              <span className="relative">
+                <span className="text-primary italic">kick ass</span>
+                <motion.span
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.8, duration: 0.5 }}
+                  className="absolute -bottom-1 left-0 right-0 h-1 bg-primary/30 rounded-full origin-left"
+                />
+              </span>
             </h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-md mx-auto lg:mx-0"
+            >
+              Fast, easy, and affordable custom printing. Trusted by 350,000+ businesses worldwide.
+            </motion.p>
 
             {/* Features */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="flex flex-wrap justify-center lg:justify-start gap-4 mt-8"
+              transition={{ delay: 0.5 }}
+              className="flex flex-wrap justify-center lg:justify-start gap-4 mt-6"
             >
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-2 text-muted-foreground">
-                  <feature.icon className="w-5 h-5 text-primary" />
-                  <span className="text-sm font-medium">{feature.text}</span>
+              {features.map((feature) => (
+                <div key={feature.text} className="flex items-center gap-2">
+                  <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <feature.icon className="w-3 h-3 text-primary" />
+                  </div>
+                  <span className="text-sm font-medium text-foreground/80">{feature.text}</span>
                 </div>
               ))}
             </motion.div>
@@ -98,124 +100,111 @@ export function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.6 }}
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-10"
             >
-              <Button 
-                size="lg" 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg px-8 py-6 rounded-full shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all group"
+              <Button
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base px-8 py-6 rounded-full shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 transition-all group hover:scale-105"
+                onClick={playClick}
               >
                 Start Designing Free
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="lg"
-                className="font-semibold text-lg px-8 py-6 rounded-full border-2"
-              >
-                Shop Products
-              </Button>
-              <Button 
-                variant="ghost" 
-                size="lg"
-                className="text-muted-foreground hover:text-foreground font-medium"
+                className="font-semibold text-base px-8 py-6 rounded-full border-2 hover:bg-primary/5 transition-all"
+                onClick={playClick}
               >
                 Get Free Samples
               </Button>
             </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="flex flex-wrap justify-center lg:justify-start gap-8 mt-12 pt-8 border-t border-border"
+            >
+              {stats.map((stat) => (
+                <div key={stat.label} className="text-center lg:text-left">
+                  <div className="text-2xl font-black text-primary">{stat.value}</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">{stat.label}</div>
+                </div>
+              ))}
+            </motion.div>
           </motion.div>
 
-          {/* Right Content - Visual */}
+          {/* Right Content - Real Images */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
             className="relative"
           >
-            <div className="relative aspect-square max-w-lg mx-auto">
-              {/* Main sticker showcase */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.div
-                  animate={{ rotate: [0, 2, 0, -2, 0] }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                  className="relative"
-                >
-                  {/* Stacked stickers effect */}
-                  <div className="absolute -top-4 -left-4 w-64 h-64 bg-gradient-to-br from-secondary to-secondary/80 rounded-3xl transform rotate-6 shadow-2xl" />
-                  <div className="absolute -top-2 -left-2 w-64 h-64 bg-gradient-to-br from-accent to-accent/80 rounded-3xl transform rotate-3 shadow-xl" />
-                  <div className="relative w-64 h-64 bg-gradient-to-br from-primary to-primary/80 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden">
-                    <div className="text-center text-primary-foreground">
-                      <div className="text-6xl font-bold mb-2">M</div>
-                      <div className="text-sm font-semibold opacity-90">YOUR LOGO HERE</div>
-                    </div>
-                    {/* Glossy effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent" />
-                  </div>
-                </motion.div>
+            {/* Main hero image */}
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="relative rounded-3xl overflow-hidden shadow-2xl"
+            >
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hero_1x-Yjddh7IW92UvnWIwuSSHuP5FqFaoJ8.jpg"
+                alt="Sticker Mule custom stickers in a box - showcasing die-cut stickers, magnets, and custom merch"
+                width={600}
+                height={450}
+                className="w-full object-cover"
+                priority
+              />
+            </motion.div>
+
+            {/* Floating secondary image - taco stickers */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
+              animate={{ opacity: 1, scale: 1, rotate: -6 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+              whileHover={{ rotate: 0, scale: 1.05 }}
+              className="absolute -bottom-6 -left-6 lg:-left-10 w-44 h-28 rounded-2xl overflow-hidden shadow-xl border-4 border-card cursor-pointer"
+            >
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/as-web-Stickermule_-_169-gTixLqx96t4pDbrTvsn0Wo7KA1aTOQ.webp"
+                alt="Custom taco die-cut stickers on orange background"
+                fill
+                className="object-cover"
+              />
+            </motion.div>
+
+            {/* Floating badge - Proof Ready */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+              className="absolute top-4 -right-4 lg:-right-8 bg-card rounded-2xl shadow-xl p-3 border border-border"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 bg-green-500/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-green-500" />
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground text-sm">Proof Ready</div>
+                  <div className="text-xs text-muted-foreground">in 4 minutes</div>
+                </div>
               </div>
+            </motion.div>
 
-              {/* Floating badges */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.8 }}
-                className="absolute -right-4 top-1/4 bg-card rounded-2xl shadow-xl p-4 border border-border"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-green-500/10 rounded-full flex items-center justify-center">
-                    <Check className="w-5 h-5 text-green-500" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-foreground text-sm">Proof Ready</div>
-                    <div className="text-xs text-muted-foreground">in 4 minutes</div>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1 }}
-                className="absolute -left-4 bottom-1/4 bg-card rounded-2xl shadow-xl p-4 border border-border"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                    <Truck className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-foreground text-sm">Free Shipping</div>
-                    <div className="text-xs text-muted-foreground">Worldwide</div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
+            {/* Floating badge - Free Shipping */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.1 }}
+              className="absolute -top-4 left-8 bg-primary text-primary-foreground rounded-2xl shadow-xl px-4 py-2"
+            >
+              <div className="text-sm font-bold">Free Worldwide Shipping</div>
+            </motion.div>
           </motion.div>
         </div>
-
-        {/* Trust Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="mt-20 lg:mt-32"
-        >
-          <p className="text-center text-sm text-muted-foreground mb-8">
-            Trusted by 350,000+ businesses worldwide
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-16">
-            {trustLogos.map((logo, index) => (
-              <motion.div
-                key={logo}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.9 + index * 0.1 }}
-                className="text-muted-foreground/50 font-bold text-lg hover:text-muted-foreground transition-colors cursor-pointer"
-              >
-                {logo}
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   )

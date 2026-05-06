@@ -1,15 +1,16 @@
 "use client"
 
+import Image from "next/image"
 import { motion } from "framer-motion"
-import { 
-  FileCheck, 
-  HeadphonesIcon, 
-  Leaf, 
-  Zap, 
-  Shield, 
+import {
+  FileCheck,
+  HeadphonesIcon,
+  Leaf,
+  Zap,
+  Shield,
   Palette,
   RefreshCw,
-  Award
+  Award,
 } from "lucide-react"
 
 const features = [
@@ -36,7 +37,7 @@ const features = [
   {
     icon: Shield,
     title: "Quality guaranteed",
-    description: "Not happy? We&apos;ll reprint your order or give you a full refund. No questions.",
+    description: "Not happy? We'll reprint your order or give you a full refund. No questions asked.",
   },
   {
     icon: Palette,
@@ -58,10 +59,6 @@ const features = [
 export function WhySection() {
   return (
     <section className="py-20 lg:py-32 relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-primary/5 via-transparent to-transparent rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tl from-accent/5 via-transparent to-transparent rounded-full blur-3xl -z-10" />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -70,7 +67,7 @@ export function WhySection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
+          <h2 className="text-3xl lg:text-4xl font-black text-foreground">
             Why Sticker Mule?
           </h2>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
@@ -79,7 +76,7 @@ export function WhySection() {
         </motion.div>
 
         {/* Features Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-20">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -87,15 +84,12 @@ export function WhySection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
-              className="group text-center lg:text-left"
+              className="group"
             >
-              {/* Icon */}
-              <div className="inline-flex w-12 h-12 rounded-2xl bg-primary/10 items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+              <div className="inline-flex w-12 h-12 rounded-2xl bg-primary/10 items-center justify-center mb-4 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-200">
                 <feature.icon className="w-6 h-6 text-primary" />
               </div>
-
-              {/* Content */}
-              <h3 className="text-lg font-bold text-foreground mb-2">
+              <h3 className="text-base font-bold text-foreground mb-2">
                 {feature.title}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
@@ -104,6 +98,33 @@ export function WhySection() {
             </motion.div>
           ))}
         </div>
+
+        {/* Sticker variety image showcase */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="grid md:grid-cols-2 gap-6"
+        >
+          <div className="rounded-3xl overflow-hidden shadow-xl">
+            <Image
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images-C6ZIr4j6HUT72hbJUma3YeDgXE3xem.jpg"
+              alt="Colorful assortment of custom stickers featuring mushrooms, bikes, smiley faces, and various artistic designs"
+              width={800}
+              height={500}
+              className="w-full object-cover h-64"
+            />
+          </div>
+          <div className="rounded-3xl overflow-hidden shadow-xl">
+            <Image
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/as-web-StickerMuleTT-_16_9-oQl3OAj2a7RZj7Scj6wHRAg222Q3HL.webp"
+              alt="Hand holding custom stickers including flame sunglasses, butterfly, avocado skull, and pixel art stickers on orange background"
+              width={800}
+              height={500}
+              className="w-full object-cover h-64"
+            />
+          </div>
+        </motion.div>
       </div>
     </section>
   )

@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { Sparkles, Clock, Truck, TrendingUp } from "lucide-react"
 
@@ -8,25 +9,29 @@ const values = [
     icon: Sparkles,
     title: "Design in seconds with AI",
     description: "Our AI-powered studio removes backgrounds, upscales images, and creates vectors instantly.",
-    color: "from-primary to-orange-600",
+    color: "text-primary",
+    bg: "bg-primary/10",
   },
   {
     icon: Clock,
     title: "Real proofs in minutes",
     description: "Get free, high-quality proofs of your design before you commit. No surprises.",
-    color: "from-accent to-cyan-600",
+    color: "text-cyan-500",
+    bg: "bg-cyan-500/10",
   },
   {
     icon: Truck,
     title: "Free worldwide shipping",
     description: "Every order ships free. Yes, everywhere. No minimum order required.",
-    color: "from-green-500 to-emerald-600",
+    color: "text-green-500",
+    bg: "bg-green-500/10",
   },
   {
     icon: TrendingUp,
     title: "Pro selling tools",
     description: "Turn your designs into a business with our marketplace and seller dashboard.",
-    color: "from-purple-500 to-violet-600",
+    color: "text-purple-500",
+    bg: "bg-purple-500/10",
   },
 ]
 
@@ -34,49 +39,92 @@ export function ValueCards() {
   return (
     <section className="py-20 lg:py-32 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
+          {/* Left: image */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="relative"
+          >
+            <div className="rounded-3xl overflow-hidden shadow-2xl">
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/homepage-share-image-en-Pg32UVzioeBGLytfzAdfi053guK9Ui.png"
+                alt="Buy and sell custom products with Sticker Mule - showing stickers and custom t-shirt"
+                width={800}
+                height={450}
+                className="w-full object-cover"
+              />
+            </div>
+            {/* Floating donkey mascot */}
+            <motion.div
+              animate={{ y: [0, -10, 0], rotate: [-3, 3, -3] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -bottom-8 -right-4 lg:-right-8 w-28 h-28"
+            >
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/proof-Qry9TMI12cHokSjGKokiQEwabHwx46.png"
+                alt="Sticker Mule donkey mascot sticker with holographic glitter border"
+                width={112}
+                height={112}
+                className="w-full h-full object-contain drop-shadow-2xl"
+              />
+            </motion.div>
+          </motion.div>
+
+          {/* Right: text */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <h2 className="text-3xl lg:text-4xl font-black text-foreground">
+              Why 350,000+ businesses choose us
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
+              From design to delivery, we make custom printing ridiculously easy.
+            </p>
+
+            <div className="mt-10 space-y-6">
+              {values.map((value, index) => (
+                <motion.div
+                  key={value.title}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex items-start gap-4 group"
+                >
+                  <div className={`w-11 h-11 rounded-2xl ${value.bg} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
+                    <value.icon className={`w-5 h-5 ${value.color}`} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-foreground">{value.title}</h3>
+                    <p className="text-muted-foreground text-sm mt-1 leading-relaxed">{value.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Wide image banner */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="rounded-3xl overflow-hidden shadow-xl"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
-            Why 350,000+ businesses choose us
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
-            From design to delivery, we make custom printing ridiculously easy.
-          </p>
+          <Image
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cover-1-iEBpLsjWQPXUTbVQbF4VH4tXLvkXuD.webp"
+            alt="Wide variety of custom die-cut stickers featuring artistic designs - shoes, error message, breakfast, and more"
+            width={1400}
+            height={400}
+            className="w-full object-cover max-h-72"
+          />
         </motion.div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {values.map((value, index) => (
-            <motion.div
-              key={value.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -8, transition: { duration: 0.2 } }}
-              className="group relative bg-background rounded-3xl p-8 border border-border hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 cursor-pointer"
-            >
-              {/* Icon */}
-              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${value.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                <value.icon className="w-7 h-7 text-white" />
-              </div>
-
-              {/* Content */}
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                {value.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                {value.description}
-              </p>
-
-              {/* Hover gradient */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   )
