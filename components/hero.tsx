@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Check, Star, Truck, FileCheck, Zap } from "lucide-react"
 import { createClickSound } from "@/lib/sounds"
 import { useMotion } from "@/components/motion-provider"
+import { PlayMeButton } from "@/components/play-me-button"
 
 const features = [
   { icon: Truck, text: "Free worldwide shipping" },
@@ -84,15 +85,22 @@ export function Hero() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="text-center lg:text-left"
           >
-            {/* Badge */}
+            {/* Badge + Play Me */}
             <motion.div
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.15 }}
-              className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-6"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-6"
             >
-              <Star className="w-4 h-4 fill-primary" />
-              4.7/5 from 350k+ verified reviews
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold">
+                <Star className="w-4 h-4 fill-primary" />
+                4.7/5 from 350k+ verified reviews
+              </div>
+              <PlayMeButton
+                text="Welcome to Sticker Mule. Custom stickers, labels, and merch with free worldwide shipping. Trusted by over 350,000 businesses for lightning-fast, high-quality printing. Start designing for free today."
+                label="Hear our pitch"
+                variant="pill"
+              />
             </motion.div>
 
             {/* Headline — Satoshi Black */}
@@ -170,14 +178,21 @@ export function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="flex flex-wrap justify-center lg:justify-start gap-8 mt-12 pt-8 border-t border-border"
+              className="mt-12 pt-8 border-t border-border"
             >
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-center lg:text-left">
-                  <div className="font-display text-2xl font-black text-primary">{stat.value}</div>
-                  <div className="text-xs text-muted-foreground mt-0.5">{stat.label}</div>
-                </div>
-              ))}
+              <div className="flex flex-wrap justify-center lg:justify-start gap-8 mb-5">
+                {stats.map((stat) => (
+                  <div key={stat.label} className="text-center lg:text-left">
+                    <div className="font-display text-2xl font-black text-primary">{stat.value}</div>
+                    <div className="text-xs text-muted-foreground mt-0.5">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+              <PlayMeButton
+                text="Over 350,000 happy businesses. More than 100 million stickers shipped. An average rating of 4.7 stars."
+                label="Hear our stats"
+                variant="inline"
+              />
             </motion.div>
           </motion.div>
 

@@ -8,6 +8,7 @@ import { ArrowRight } from "lucide-react"
 import { createPeelSound, createClickSound, createSuccessSound } from "@/lib/sounds"
 import { ConfettiBurst } from "@/components/confetti-burst"
 import { useAudio } from "@/components/audio-provider"
+import { PlayMeButton } from "@/components/play-me-button"
 
 const products = [
   {
@@ -120,6 +121,13 @@ export function BestSellers() {
             <p className="mt-2 text-lg text-muted-foreground">
               Our most popular products, loved by millions
             </p>
+            <div className="mt-3">
+              <PlayMeButton
+                text="Best sellers. Our most popular products, loved by millions. Die-Cut Stickers, Holographic Stickers, Glitter Stickers, Clear Stickers, Custom Sticker Packs, Keychains, and Free Sticker Samples. Hover any card to hear full details."
+                label="Hear what we sell"
+                variant="inline"
+              />
+            </div>
           </div>
           <Button
             variant="ghost"

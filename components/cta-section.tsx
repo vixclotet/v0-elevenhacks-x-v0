@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
 import { createClickSound, createSuccessSound } from "@/lib/sounds"
+import { PlayMeButton } from "@/components/play-me-button"
 
 export function CTASection() {
   const playClick = createClickSound()
@@ -85,6 +86,14 @@ export function CTASection() {
               Join 350,000+ businesses creating custom stickers and merch.
               Free proofs, free shipping, and ridiculously fast turnaround.
             </p>
+            <div className="mt-4">
+              <PlayMeButton
+                text="Ready to create something awesome? Join over 350,000 businesses creating custom stickers and merch with Sticker Mule. Free proofs, free shipping, and ridiculously fast turnaround. Start designing for free today — no credit card required."
+                label="Hear this offer"
+                variant="pill"
+                className="bg-white/20 text-white hover:bg-white/30 border-white/30"
+              />
+            </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-10">
               <Button

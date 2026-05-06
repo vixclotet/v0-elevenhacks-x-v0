@@ -7,6 +7,7 @@ import { ArrowRight, Quote, TrendingUp, Users, Package, Star, Zap } from "lucide
 import { Button } from "@/components/ui/button"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { PlayMeButton } from "@/components/play-me-button"
 import {
   NikeLogo,
   GoogleLogo,
@@ -174,6 +175,14 @@ export default function CustomerStoriesPage() {
               <p className="mt-6 text-xl text-white/70 leading-relaxed max-w-xl">
                 From indie skate brands to Fortune 500 companies — see how 350,000+ businesses use Sticker Mule to grow, delight, and stick around.
               </p>
+              <div className="mt-4">
+                <PlayMeButton
+                  text="Customer Stories. Real brands. Real results. From indie skate brands to Fortune 500 companies — see how over 350,000 businesses use Sticker Mule to grow, delight, and stick around."
+                  label="Hear intro"
+                  variant="pill"
+                  className="bg-white/20 text-white hover:bg-white/30 border-white/30"
+                />
+              </div>
               <div className="flex flex-wrap gap-4 mt-8">
                 <Button className="btn-press bg-primary hover:bg-primary-dark text-white font-bold font-display rounded-full px-8 py-6 text-base shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 transition-all group">
                   Start Your Story
@@ -356,9 +365,16 @@ export default function CustomerStoriesPage() {
                           </span>
                         ))}
                       </div>
-                      <div className="mt-5 flex items-center gap-2 text-primary font-semibold text-sm group-hover:gap-3 transition-all">
-                        <span>Read full story</span>
-                        <ArrowRight className="w-4 h-4" />
+                      <div className="mt-5 flex items-center justify-between gap-3 flex-wrap">
+                        <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:gap-3 transition-all">
+                          <span>Read full story</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </div>
+                        <PlayMeButton
+                          text={`${study.brand} case study. ${study.headline}. ${study.description}`}
+                          label="Play story"
+                          variant="inline"
+                        />
                       </div>
                     </div>
                   </motion.article>
@@ -377,6 +393,14 @@ export default function CustomerStoriesPage() {
             </blockquote>
             <div className="mt-6 text-white/70 font-medium">
               — Emily R., Brand Manager · Nike Design Team
+            </div>
+            <div className="mt-6 flex justify-center">
+              <PlayMeButton
+                text="Quote from Emily R., Brand Manager at the Nike Design Team: Sticker Mule makes it stupid easy to produce high-quality merch that our community actually wants. The turnaround is unreal."
+                label="Hear quote"
+                variant="pill"
+                className="bg-white/20 text-white hover:bg-white/30 border-white/30"
+              />
             </div>
           </div>
         </section>

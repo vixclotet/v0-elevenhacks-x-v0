@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { BRAND_LOGOS, ALL_BRANDS, CAROUSEL_BRANDS, type BrandName } from "@/components/brand-logos"
+import { PlayMeButton } from "@/components/play-me-button"
 
 // Build two tracks: first is all 12 brands going left, second is offset 6 going right
 const TRACK_A: BrandName[] = [...ALL_BRANDS, ...ALL_BRANDS]
@@ -40,9 +41,14 @@ export function LogoCarousel() {
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <p className="text-xs font-bold text-muted-foreground uppercase tracking-[0.22em]">
+        <p className="text-xs font-bold text-muted-foreground uppercase tracking-[0.22em] mb-4">
           Trusted by <span className="text-foreground">350,000+</span> teams &amp; creators — including
         </p>
+        <PlayMeButton
+          text="Sticker Mule is trusted by teams at Nike, Google, Netflix, GitHub, Microsoft, Dropbox, lululemon, Facebook, and over 350,000 more businesses worldwide."
+          label="Hear who trusts us"
+          variant="pill"
+        />
       </motion.div>
 
       {/* Track A — scrolls left */}

@@ -13,6 +13,7 @@ import {
   CAROUSEL_BRANDS,
   type BrandName,
 } from "@/components/brand-logos"
+import { PlayMeButton } from "@/components/play-me-button"
 
 type Platform = "twitter" | "instagram" | "facebook" | "trustpilot"
 
@@ -274,6 +275,15 @@ function ReviewCard({ review }: { review: Review }) {
       {/* Text */}
       <p className="text-sm text-foreground/80 leading-relaxed">{review.text}</p>
 
+      {/* Play Me */}
+      <div className="mt-3">
+        <PlayMeButton
+          text={`${review.name} from ${review.company} says: ${review.text}`}
+          label="Read aloud"
+          variant="inline"
+        />
+      </div>
+
       {/* Optional image */}
       {review.image && (
         <div className="mt-4 rounded-2xl overflow-hidden aspect-video relative">
@@ -345,6 +355,14 @@ export default function WallOfLovePage() {
               <p className="mt-6 text-xl text-white/70 leading-relaxed max-w-lg">
                 Thousands of businesses, creators, and designers share their Sticker Mule love every day. Here&apos;s a taste of what they&apos;re saying.
               </p>
+              <div className="mt-4">
+                <PlayMeButton
+                  text="Wall of Love. Our customers say it best. Thousands of businesses, creators, and designers share their Sticker Mule love every day. From Nike to Google to GitHub — over 350,000 happy customers worldwide."
+                  label="Hear intro"
+                  variant="pill"
+                  className="bg-white/20 text-white hover:bg-white/30 border-white/30"
+                />
+              </div>
               <div className="flex flex-wrap items-center gap-6 mt-8">
                 <div className="flex -space-x-3" aria-hidden="true">
                   {["/avatars/avatar-1.jpg", "/avatars/avatar-2.jpg", "/avatars/avatar-3.jpg", "/avatars/avatar-4.jpg"].map((src, i) => (
